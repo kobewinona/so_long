@@ -5,34 +5,40 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dklimkin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/29 17:59:07 by dklimkin          #+#    #+#             */
-/*   Updated: 2023/11/29 17:59:08 by dklimkin         ###   ########.fr       */
+/*   Created: 2023/12/01 14:22:44 by dklimkin          #+#    #+#             */
+/*   Updated: 2023/12/01 14:22:45 by dklimkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-int	create_trgb(int t, int r, int g, int b)
+int	generate_color(int alpha, int red, int green, int blue)
 {
-	return (t << 24 | r << 16 | g << 8 | b);
+	if (alpha > 255 || red > 255 || green > 255 || blue > 255)
+		return (0);
+	alpha = 255 - alpha;
+	return (alpha << 24 | red << 16 | green << 8 | blue);
 }
 
-int	get_t(int trgb)
+int	get_a(int argb)
 {
-	return ((trgb >> 24) & 0xFF);
+	int	alpha;
+
+	alpha = (argb >> 24) & 0xFF;
+	return (255 - alpha);
 }
 
-int	get_r(int trgb)
+int	get_r(int argb)
 {
-	return ((trgb >> 16) & 0xFF);
+	return ((argb >> 16) & 0xFF);
 }
 
-int	get_g(int trgb)
+int	get_g(int argb)
 {
-	return ((trgb >> 8) & 0xFF);
+	return ((argb >> 8) & 0xFF);
 }
 
-int	get_b(int trgb)
+int	get_b(int argb)
 {
-	return (trgb & 0xFF);
+	return (argb & 0xFF);
 }

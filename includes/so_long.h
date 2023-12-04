@@ -13,25 +13,26 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 # include <OpenGL/gl.h>
+# include "libft.h"
 # include "libftprintf.h"
 # include "../libs/minilibx_macos/mlx.h"
+# include "../src/src.h"
+# include "../utils/utils.h"
 
 // magic numbers
 # define TRUE 1
 # define FALSE 0
 # define ERROR -1
 
-// structures
+// keyboard keys
+# define ESC 53
+# define FOLLOW 3
+# define COLOR 8
+# define CLEAR 6
 
-
-// functions
-// - src
-
-// - utils
-int	create_trgb(int t, int r, int g, int b);
-int	get_t(int trgb);
-int	get_r(int trgb);
-int	get_g(int trgb);
-int	get_b(int trgb);
+int	read_keys(int key_pressed, void *param);
+int	follow_mouse(unsigned int mouse_x, unsigned int mouse_y, void *param);
+int	trigger_drawing(int button);
+int	cancel_drawing(int button);
 
 #endif
