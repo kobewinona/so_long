@@ -18,10 +18,10 @@ void	draw_shape(t_shape shape, t_img img)
 	unsigned int	x;
 
 	y = 0;
-	while (y < shape.height && y + shape.y < img.height)
+	while (y < shape.height && (y + shape.y) < img.height)
 	{
 		x = 0;
-		while (x < shape.width && x + shape.x < img.width)
+		while (x < shape.width && (x + shape.x) < img.width)
 		{
 			put_pixel_img(img, x + shape.x, y + shape.y, shape.color);
 			x++;

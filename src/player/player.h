@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   put_pixel_img.c                                    :+:      :+:    :+:   */
+/*   player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dklimkin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/04 12:46:04 by dklimkin          #+#    #+#             */
-/*   Updated: 2023/12/04 12:46:05 by dklimkin         ###   ########.fr       */
+/*   Created: 2023/12/04 14:52:45 by dklimkin          #+#    #+#             */
+/*   Updated: 2023/12/04 14:52:47 by dklimkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/so_long.h"
+#ifndef PLAYER_H
+# define PLAYER_H
 
-void	put_pixel_img(t_img img, unsigned int x, unsigned int y, int color)
+typedef struct s_player
 {
-	char	*dst;
+	t_obj			obj;
+	unsigned int	width;
+	unsigned int	height;
+	int				color;
+	t_img			*sprite;
+}	t_player;
 
-	if ((x >= 0 && y >= 0) && (x < img.width && y < img.height))
-	{
-		dst = img.addr + ((y * img.line_len) + (x * (img.bpp / 8)));
-		*(unsigned int *)dst = color;
-	}
-}
+void	create_player(t_win *window);
+
+#endif

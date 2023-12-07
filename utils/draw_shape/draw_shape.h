@@ -13,15 +13,16 @@
 #ifndef DRAW_SHAPE_H
 # define DRAW_SHAPE_H
 
-typedef struct s_shape
-{
+typedef struct s_shape	t_shape;
+
+struct s_shape {
 	unsigned int	x;
 	unsigned int	y;
 	unsigned int	width;
 	unsigned int	height;
 	int				color;
-}	t_shape;
+};
 
-void	draw_shape(t_shape square, t_img img);
+void	draw_shape(t_shape shape, t_img img);
 
 #endif

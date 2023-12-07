@@ -13,9 +13,8 @@
 #ifndef IMAGE_H
 # define IMAGE_H
 
-typedef struct s_img
-{
-	t_win			win;
+struct s_img {
+	t_win			*win;
 	void			*img_ptr;
 	char			*addr;
 	unsigned int	width;
@@ -23,8 +22,8 @@ typedef struct s_img
 	int				bpp;
 	int				endian;
 	int				line_len;
-}					t_img;
+};
 
-t_img	generate_image(int width, int height, t_win window);
+t_img	*create_image(int width, int height, t_win *window);
 
 #endif

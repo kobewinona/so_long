@@ -13,11 +13,16 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 # include <OpenGL/gl.h>
+# include <math.h>
+# include <string.h>
 # include "libft.h"
 # include "libftprintf.h"
 # include "../libs/minilibx_macos/mlx.h"
-# include "../src/src.h"
 # include "../utils/utils.h"
+# include "../src/src.h"
+
+// title
+# define TITLE "so_long"
 
 // magic numbers
 # define TRUE 1
@@ -26,13 +31,15 @@
 
 // keyboard keys
 # define ESC 53
-# define FOLLOW 3
-# define COLOR 8
-# define CLEAR 6
+# define W 13
+# define A 0
+# define S 1
+# define D 2
 
-int	read_keys(int key_pressed, void *param);
-int	follow_mouse(unsigned int mouse_x, unsigned int mouse_y, void *param);
-int	trigger_drawing(int button);
-int	cancel_drawing(int button);
+// grid size
+# define WINDOW_WIDTH 768
+# define WINDOW_HEIGHT 585
+# define TILE_WIDTH 64
+# define TILE_HEIGHT 64
 
 #endif

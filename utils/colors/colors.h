@@ -13,7 +13,7 @@
 #ifndef COLORS_H
 # define COLORS_H
 
-int		generate_color(int alpha, int red, int green, int blue);
+int		create_color(int alpha, int red, int green, int blue);
 int		get_a(int argb);
 int		get_r(int argb);
 int		get_g(int argb);

@@ -1,5 +1,5 @@
-obj/./utils/image/image.o: utils/image/image.c \
-  utils/image/../../includes/so_long.h includes/libft.h \
+obj/./src/ground/ground.o: src/ground/ground.c \
+  src/ground/../../includes/so_long.h includes/libft.h \
   includes/libftprintf.h includes/../libs/minilibx_macos/mlx.h \
   includes/../utils/utils.h includes/../utils/./window/window.h \
   includes/../utils/./image/image.h includes/../utils/./object/object.h \

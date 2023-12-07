@@ -12,19 +12,19 @@
 
 #include "../../includes/so_long.h"
 
-t_img	generate_image(int width, int height, t_win window)
+t_img	*create_image(int width, int height, t_win *window)
 {
-	t_img	image;
+	t_img	*image;
 
-	image.win = window;
-	image.img_ptr = mlx_new_image(window.mlx_ptr, width, height);
-	image.addr = mlx_get_data_addr(\
-		image.img_ptr, \
-		&image.bpp, \
-		&image.line_len, \
-		&image.endian \
-	);
-	image.width = width;
-	image.height = height;
+	image = (t_img *)malloc(sizeof(t_img));
+	if (!image)
+		return (NULL);
+	image->win = window;
+	image->img_ptr = mlx_new_image(window->mlx_ptr, width, height);
+	image->addr = mlx_get_data_addr(
+			image->img_ptr, &image->bpp,
+			&image->line_len, &image->endian);
+	image->width = width;
+	image->height = height;
 	return (image);
 }

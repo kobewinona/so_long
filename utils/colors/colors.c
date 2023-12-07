@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "../../includes/so_long.h"
 
-int	generate_color(int alpha, int red, int green, int blue)
+int	create_color(int alpha, int red, int green, int blue)
 {
 	if (alpha > 255 || red > 255 || green > 255 || blue > 255)
 		return (0);

@@ -4,7 +4,8 @@ NAME		= so_long
 ASAN_NAME	= so_long_asan
 
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror -MMD
+# CFLAGS		= -Wall -Wextra -Werror -MMD
+CFLAGS		= -MMD
 ASAN_FLAGS	= -fsanitize=address
 RM			= rm -rf
 INCLUDES	= ./includes

@@ -12,6 +12,11 @@
 
 #ifndef SRC_H
 # define SRC_H
-# include "../utils/utils.h"
+# include "./player/player.h"
+# include "./ground/ground.h"
+# include "./wall/wall.h"
+# include "./collectable/collectable.h"
+
+int	read_keys(int key_pressed, void *param);
 
 #endif

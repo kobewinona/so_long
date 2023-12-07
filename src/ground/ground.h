@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player.h                                           :+:      :+:    :+:   */
+/*   ground.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dklimkin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/04 14:52:45 by dklimkin          #+#    #+#             */
-/*   Updated: 2023/12/04 14:52:47 by dklimkin         ###   ########.fr       */
+/*   Created: 2023/12/07 16:19:44 by dklimkin          #+#    #+#             */
+/*   Updated: 2023/12/07 16:19:45 by dklimkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef IMAGE_H
-# define IMAGE_H
+#ifndef GROUND_H
+# define GROUND_H
 
-typedef struct s_plr
+typedef struct s_ground
 {
-	
-}					t_plr;
+	t_obj	obj;
+	int		width;
+	int		height;
+	int		color;
+	t_img	*sprite;
+}	t_ground;
+
+void	create_ground(t_win *window);
 
 #endif
