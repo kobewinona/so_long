@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   put_pixel_img.c                                    :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dklimkin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/04 12:46:04 by dklimkin          #+#    #+#             */
-/*   Updated: 2023/12/04 12:46:05 by dklimkin         ###   ########.fr       */
+/*   Created: 2023/12/11 12:33:52 by dklimkin          #+#    #+#             */
+/*   Updated: 2023/12/11 12:33:53 by dklimkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "put_pixel_img.h"
+#ifndef PARSER_H
+#define PARSER_H
+# include "so_long.h"
 
-void	put_pixel_img(t_img img, int x, int y, int color)
-{
-	char	*dst;
+void    parse_map(char **argv, t_obj_type ***buffer);
+int     count_rows(char **argv);
 
-	if ((x >= 0 && y >= 0) && (x < img.width && y < img.height))
-	{
-		dst = img.addr + ((y * img.line_len) + (x * (img.bpp / 8)));
-		*(unsigned int *)dst = color;
-	}
-}
+#endif

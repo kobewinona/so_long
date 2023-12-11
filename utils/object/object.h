@@ -12,20 +12,11 @@
 
 #ifndef OBJECT_H
 # define OBJECT_H
-
-typedef enum e_obj_type {
-	PLAYER,
-	WALL,
-	GROUND,
-	COLLECTABLE
-}	t_obj_type;
+# include "types.h"
+# include <stdio.h>
 
 typedef struct s_obj {
 	t_obj_type	obj_type;
-	t_win		*win;
-	int			collision;
-	int			x;
-	int			y;
 }	t_obj;
 
 #endif

@@ -12,16 +12,16 @@
 
 #ifndef DRAW_SHAPE_H
 # define DRAW_SHAPE_H
+# include "../image/image.h"
+# include "../put_pixel_img/put_pixel_img.h"
 
-typedef struct s_shape	t_shape;
-
-struct s_shape {
-	unsigned int	x;
-	unsigned int	y;
-	unsigned int	width;
-	unsigned int	height;
-	int				color;
-};
+typedef struct s_shape {
+	int	x;
+	int	y;
+	int	width;
+	int	height;
+	int	color;
+}	t_shape;
 
 void	draw_shape(t_shape shape, t_img img);
 

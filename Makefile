@@ -36,7 +36,7 @@ asan: $(OBJS)
 $(OBJS_DIR)/%.o: %.c
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -I$(INCLUDES) -c $< -o $@
-	
+
 -include $(DEPS)
 
 clean:

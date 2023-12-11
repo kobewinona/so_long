@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/so_long.h"
+#include "draw_shape.h"
 
 void	draw_shape(t_shape shape, t_img img)
 {

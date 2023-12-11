@@ -10,17 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/so_long.h"
+#include "image.h"
 
-t_img	*create_image(int width, int height, t_win *window)
+t_img	*create_image(int width, int height, void *mlx_ptr)
 {
 	t_img	*image;
 
 	image = (t_img *)malloc(sizeof(t_img));
 	if (!image)
-		return (NULL);
-	image->win = window;
-	image->img_ptr = mlx_new_image(window->mlx_ptr, width, height);
+		return ((void *)0);
+	image->img_ptr = mlx_new_image(mlx_ptr, width, height);
 	image->addr = mlx_get_data_addr(
 			image->img_ptr, &image->bpp,
 			&image->line_len, &image->endian);

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/so_long.h"
+#include "colors.h"
 
 int	create_color(int alpha, int red, int green, int blue)
 {

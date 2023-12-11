@@ -10,33 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/so_long.h"
+#include "window.h"
 
-static void	init_buffer(t_win *window)
-{
-	int				rows;
-	int				columns;
-	unsigned int	x;
-	unsigned int	y;
-
-	rows = WINDOW_HEIGHT / TILE_HEIGHT;
-	columns = WINDOW_WIDTH / TILE_WIDTH;
-	window->buffer = malloc((rows * sizeof(t_buffer **)));
-	y = 0;
-	while (y < rows)
-	{
-		window->buffer[y] = malloc((columns * sizeof(t_buffer *)));
-		x = 0;
-		while (x < columns)
-		{
-			window->buffer[y][x].img = NULL;
-			x++;
-		}
-		y++;
-	}
-}
-
-t_win	create_window(char *title)
+t_win	create_window(void)
 {
 	t_win	window;
 
@@ -45,9 +21,8 @@ t_win	create_window(char *title)
 			window.mlx_ptr,
 			WINDOW_WIDTH,
 			WINDOW_HEIGHT,
-			title);
+			TITLE);
 	window.width = WINDOW_WIDTH;
 	window.height = WINDOW_HEIGHT;
-	init_buffer(&window);
 	return (window);
 }

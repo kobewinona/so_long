@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   put_pixel_img.c                                    :+:      :+:    :+:   */
+/*   layout.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dklimkin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/04 12:46:04 by dklimkin          #+#    #+#             */
-/*   Updated: 2023/12/04 12:46:05 by dklimkin         ###   ########.fr       */
+/*   Created: 2023/12/11 14:46:24 by dklimkin          #+#    #+#             */
+/*   Updated: 2023/12/11 14:46:26 by dklimkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "put_pixel_img.h"
+#ifndef LAYOUT_H
+#define LAYOUT_H
+# include "so_long.h"
+# include "../get_next_line/get_next_line.h"
+# include "../print_error/print_error.h"
 
-void	put_pixel_img(t_img img, int x, int y, int color)
-{
-	char	*dst;
+typedef struct s_layout {
+    int     rows;
+    int     columns;
+    char    **grid;
+}   t_layout;
 
-	if ((x >= 0 && y >= 0) && (x < img.width && y < img.height))
-	{
-		dst = img.addr + ((y * img.line_len) + (x * (img.bpp / 8)));
-		*(unsigned int *)dst = color;
-	}
-}
+t_layout   *create_layout(char *filename);
+
+#endif

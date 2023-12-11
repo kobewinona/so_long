@@ -3,6 +3,11 @@
 
 # program
 a.out
+so_long
+so_long_asan
+
+#objects
+./obj
 
 # rest
 .DS_store

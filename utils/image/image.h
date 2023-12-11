@@ -12,9 +12,10 @@
 
 #ifndef IMAGE_H
 # define IMAGE_H
+# include <stdlib.h>
+# include "../../libs/minilibx_macos/mlx.h"
 
-struct s_img {
-	t_win			*win;
+typedef struct s_img {
 	void			*img_ptr;
 	char			*addr;
 	unsigned int	width;
@@ -22,8 +23,8 @@ struct s_img {
 	int				bpp;
 	int				endian;
 	int				line_len;
-};
+}	t_img;
 
-t_img	*create_image(int width, int height, t_win *window);
+t_img	*create_image(int width, int height, void *mlx_ptr);
 
 #endif

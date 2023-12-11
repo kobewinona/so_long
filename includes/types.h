@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   put_pixel_img.c                                    :+:      :+:    :+:   */
+/*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dklimkin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/04 12:46:04 by dklimkin          #+#    #+#             */
-/*   Updated: 2023/12/04 12:46:05 by dklimkin         ###   ########.fr       */
+/*   Created: 2023/12/07 19:15:39 by dklimkin          #+#    #+#             */
+/*   Updated: 2023/12/07 19:15:44 by dklimkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "put_pixel_img.h"
+#ifndef TYPES_H
+# define TYPES_H
 
-void	put_pixel_img(t_img img, int x, int y, int color)
-{
-	char	*dst;
+typedef enum e_obj_type {
+    EMPTY,
+	PLAYER,
+	WALL,
+	GROUND,
+	COLLECTABLE
+}	t_obj_type;
 
-	if ((x >= 0 && y >= 0) && (x < img.width && y < img.height))
-	{
-		dst = img.addr + ((y * img.line_len) + (x * (img.bpp / 8)));
-		*(unsigned int *)dst = color;
-	}
-}
+#endif

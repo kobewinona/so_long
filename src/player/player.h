@@ -12,15 +12,22 @@
 
 #ifndef PLAYER_H
 # define PLAYER_H
+# include <stdlib.h>
+# include "constants.h"
+# include "types.h"
+# include "../../utils/utils.h"
 
 typedef struct s_player
 {
-	t_obj			obj;
-	unsigned int	width;
-	unsigned int	height;
-	int				color;
-	t_img			*sprite;
-}	t_player;
+	t_obj	obj;
+	int		collision;
+	int		width;
+	int		height;
+	int		color;
+	t_img	*sprite;
+	int		x;
+	int		y;
+}   t_player;
 
 void	create_player(t_win *window);
 

@@ -10,33 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "main.h"
 
-int	read_keys(int key_pressed, void *param)
+void    handle_error(t_gstate *game, char *err_msg)
 {
-	t_player	*player;
-
-	player = (t_player *)param;
-	if (key_pressed == W)
-		player->obj.y -= player->height;
-	if (key_pressed == A)
-		player->obj.x -= player->width;
-	if (key_pressed == S)
-		player->obj.y += player->height;
-	if (key_pressed == D)
-		player->obj.x += player->width;
-	// draw_player(player);
-	return (1);
+    if (err_msg)
+        print_error_msg(err_msg);
+    exit(EXIT_FAILURE);
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
-	t_win		window;
+	t_gstate	game;
 
-	window = create_window(TITLE);
-	if (!window.mlx_ptr || !window.win_ptr || !window.buffer)
-		exit(EXIT_FAILURE);
-	// mlx_key_hook(window.win_ptr, read_keys, &player);
-	mlx_loop(window.mlx_ptr);
+    if (argc == 1)
+        handle_error(&game, NO_MAP_ERR);
+    if (argc > 2)
+        handle_error(&game, TOO_MANY_ARGUMENTS_ERR);
+    game.layout = create_layout(argv[1]);
+    if (!game.layout)
+        handle_error(&game, NULL);
+	game.window = create_window();
+    init_buffer(&game);
+	if (!game.window.mlx_ptr || !game.window.win_ptr || !game.buffer)
+        handle_error(&game, UNKNOWN_ERR);
+	game.ground = create_ground(game.window);
+    render_buffer(&game);
+	mlx_loop(game.window.mlx_ptr);
 	return (0);
 }

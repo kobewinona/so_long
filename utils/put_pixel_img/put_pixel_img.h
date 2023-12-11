@@ -12,7 +12,8 @@
 
 #ifndef PUT_PIXEL_IMG_H
 # define PUT_PIXEL_IMG_H
+# include "../image/image.h"
 
-void	put_pixel_img(t_img img, unsigned int x, unsigned int y, int color);
+void	put_pixel_img(t_img img, int x, int y, int color);
 
 #endif

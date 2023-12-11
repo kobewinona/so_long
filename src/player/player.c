@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/so_long.h"
+#include "player.h"
 
 void	create_player(t_win *window)
 {
@@ -20,10 +20,9 @@ void	create_player(t_win *window)
 	if (!player)
 		return ;
 	player->obj.obj_type = PLAYER;
-	player->obj.win = window;
-	player->obj.collision = TRUE;
-	player->obj.x = 0;
-	player->obj.y = 0;
+	player->collision = TRUE;
+	player->x = 0;
+	player->y = 0;
 	player->width = TILE_WIDTH;
 	player->height = TILE_HEIGHT;
 	player->color = create_color(100, 13, 59, 102);

@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   put_pixel_img.c                                    :+:      :+:    :+:   */
+/*   print_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dklimkin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/04 12:46:04 by dklimkin          #+#    #+#             */
-/*   Updated: 2023/12/04 12:46:05 by dklimkin         ###   ########.fr       */
+/*   Created: 2023/12/11 15:48:37 by dklimkin          #+#    #+#             */
+/*   Updated: 2023/12/11 15:48:38 by dklimkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "put_pixel_img.h"
+#include "print_error.h"
 
-void	put_pixel_img(t_img img, int x, int y, int color)
+void    print_error_msg(char *err_msg)
 {
-	char	*dst;
-
-	if ((x >= 0 && y >= 0) && (x < img.width && y < img.height))
-	{
-		dst = img.addr + ((y * img.line_len) + (x * (img.bpp / 8)));
-		*(unsigned int *)dst = color;
-	}
+    if (err_msg)
+    {
+        ft_putstr_fd(RED, STDERR_FILENO);
+        ft_putstr_fd("Error\n", STDERR_FILENO);
+        ft_putstr_fd(GREY, STDERR_FILENO);
+        ft_putstr_fd(err_msg, STDERR_FILENO);
+        ft_putstr_fd(DEFAULT, STDERR_FILENO);
+    }
+    ft_putchar_fd('\n', STDERR_FILENO);
 }
