@@ -1,5 +1,6 @@
 # vs code
 .vscode
+.idea
 
 # program
 a.out

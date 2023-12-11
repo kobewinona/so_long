@@ -24,6 +24,7 @@
 // are collectables accessible ✖
 // are all the objs valid ✖
 
+// TODO grid is the same as buffer - maybe put buffer here instead of gstate (?)
 typedef struct s_layout {
     int     rows;
     int     columns;
