@@ -13,8 +13,16 @@
 #ifndef LAYOUT_H
 #define LAYOUT_H
 # include "so_long.h"
-# include "../get_next_line/get_next_line.h"
+# include "libgnl.h"
 # include "../print_error/print_error.h"
+
+// is file extension valid ✔
+// is layout size valid ✖
+// is obj count valid ✖
+// is map rectangular ✖
+// is layout surrounded by walls ✖
+// are collectables accessible ✖
+// are all the objs valid ✖
 
 typedef struct s_layout {
     int     rows;

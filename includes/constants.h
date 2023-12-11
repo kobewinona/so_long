@@ -49,5 +49,6 @@
 # define NO_MAP_ERR "> no map provided\n"
 # define TOO_MANY_ARGUMENTS_ERR "> too many arguments provided\n"
 # define INCORRECT_MAP_EXT_ERR "> map file extension must be .ber\n"
+# define LAYOUT_TOO_SMALL_ERR "> map is too small\n"
 
 #endif

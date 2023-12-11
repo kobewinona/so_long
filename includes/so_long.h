@@ -14,8 +14,10 @@
 # define SO_LONG_H
 # include <OpenGL/gl.h>
 # include <math.h>
+# include <fcntl.h>
 # include "libft.h"
 # include "libftprintf.h"
+# include "libgnl.h"
 # include "../libs/minilibx_macos/mlx.h"
 # include "constants.h"
 # include "types.h"

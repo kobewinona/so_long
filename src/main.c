@@ -22,7 +22,7 @@ void    handle_error(t_gstate *game, char *err_msg)
 int	main(int argc, char **argv)
 {
 	t_gstate	game;
-
+    
     if (argc == 1)
         handle_error(&game, NO_MAP_ERR);
     if (argc > 2)
@@ -30,6 +30,7 @@ int	main(int argc, char **argv)
     game.layout = create_layout(argv[1]);
     if (!game.layout)
         handle_error(&game, NULL);
+    ft_printf("layout rows %d, layout columns %d\n", game.layout->rows, game.layout->columns);
 	game.window = create_window();
     init_buffer(&game);
 	if (!game.window.mlx_ptr || !game.window.win_ptr || !game.buffer)
