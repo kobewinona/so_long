@@ -12,64 +12,85 @@
 
 #include "layout.h"
 
-static void init_layout_grid(int fd, t_layout **layout)
+void    cleanup_layout(t_layout **layout)
 {
-    char    *line;
-    int     y;
+	int         y;
+
+	if ((*layout))
+	{
+		if ((*layout)->types_table)
+			free((*layout)->types_table);
+		if ((*layout)->buffer)
+		{
+			y = 0;
+			while ((*layout)->buffer[y])
+			{
+				free((*layout)->buffer[y]);
+				y++;
+			}
+			free((*layout)->buffer);
+		}
+		free((*layout));
+	}
+}
+
+static void  print_layout_buffer(t_obj_type **buffer, int rows, int columns)
+{
+    int y;
+    int x;
 
     y = 0;
-    (*layout)->grid = malloc(13 * 6 *sizeof(char));
-    while ((line = get_next_line(fd)) != NULL)
+    while (y < rows)
     {
-        ft_printf("here 2\n");
-        (*layout)->columns = (int)ft_strlen(line);
-        ft_printf("here 3\n");
-        (*layout)->grid[y] = malloc((*layout)->columns * sizeof(char));
-        ft_printf("here 4\n");
-        if (!(*layout)->grid[y])
+        x = 0;
+        while (x < columns)
         {
-            ft_printf("here 5\n");
-            free(line);
-            return ;
+            ft_printf("%d", buffer[y][x]);
+            x++;
+            if (x != columns)
+                ft_printf(" ");
         }
-        ft_printf("here 6\n");
-        ft_strlcpy((*layout)->grid[y], line, (*layout)->columns + 1);
-        ft_printf("here 7\n");
-        free(line);
+        ft_printf("\n");
         y++;
     }
-    (*layout)->rows = y;
 }
 
-static int is_file_ext_valid(char *filename)
+//void  print_layout_buffer(t_layout *layout)
+//{
+//    int y;
+//    int x;
+//
+//    y = 0;
+//    while (y < layout->rows)
+//    {
+//        x = 0;
+//        while (x < layout->columns)
+//        {
+//            ft_printf("%d", layout->buffer[y][x]);
+//            x++;
+//            if (x != layout->columns)
+//                ft_printf(" ");
+//        }
+//        ft_printf("\n");
+//        y++;
+//    }
+//}
+
+int create_layout(t_layout **layout, char *filename, t_list **error_log)
 {
-    char    *ext;
 
-    ext = ft_strrchr(filename, '.');
-    if (!ext)
-        return (FALSE);
-    if (ft_strncmp(ext, VALID_MAP_EXT, ft_strlen(ext)) != 0)
-    {
-        print_error_msg(INCORRECT_MAP_EXT_ERR);
-        return (FALSE);
-    }
-    return (TRUE);
-}
-
-t_layout   *create_layout(char *filename)
-{
-    t_layout    *layout;
-    int         fd;
-    char        *line;
-
-    if (is_file_ext_valid(filename) == FALSE)
-        return (NULL);
-    layout = malloc(sizeof(t_layout));
-    if (!layout)
-        return ((void *)0);
-    fd = open(filename, O_RDONLY);
-    ft_printf("here 1\n");
-    init_layout_grid(fd, &layout);
-    ft_printf("grid %c\n", layout->grid[1][1]);
-    return (layout);
+	*layout = (t_layout *)malloc(sizeof(t_layout));
+	if (!(*layout))
+		return (ERROR);
+	(*layout)->types_table = NULL;
+	(*layout)->buffer = NULL;
+	(*layout)->cleanup = &cleanup_layout;
+	if (create_types_table(&(*layout)->types_table, error_log) != SUCCESS)
+		return (log_error_message(error_log, LAYOUT_ERR, TRUE));
+	if (init_layout_buffer(filename, &(*layout)->buffer, (*layout)->types_table, error_log) != SUCCESS)
+		return (log_error_message(error_log, BUFFER_ERR, TRUE));
+	if (is_layout_valid((const t_obj_type *const *)(*layout)->buffer, error_log) != TRUE)
+		return (log_error_message(error_log, LAYOUT_VALIDATION_ERR, TRUE));
+//	print_layout_buffer((*layout)->buffer, 5, 13);
+	return (SUCCESS);
 }

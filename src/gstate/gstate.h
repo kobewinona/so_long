@@ -16,19 +16,15 @@
 # include "../player/player.h"
 # include "../ground/ground.h"
 
-typedef struct s_buffer {
-    t_obj_type	*obj_type;
-}	t_buffer;
-
 typedef struct s_gstate {
     t_layout    *layout;
     t_win		window;
-    t_obj_type	**buffer;
     t_player	*player;
     t_ground	*ground;
+	t_list      **error_log;
 }	t_gstate;
 
-void	init_buffer(t_gstate *game);
-void	render_buffer(t_gstate	*game);
+int     init_game(char *map, t_list **error_log);
+void    cleanup_game(void **ptr);
 
 #endif

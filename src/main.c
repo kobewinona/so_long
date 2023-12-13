@@ -12,31 +12,36 @@
 
 #include "main.h"
 
-void    handle_error(t_gstate *game, char *err_msg)
+static int  validate_mapfile(char *filename, t_list **error_log)
 {
-    if (err_msg)
-        print_error_msg(err_msg);
-    exit(EXIT_FAILURE);
+    char    *ext;
+    int     fd;
+
+    ext = ft_strrchr(filename, '.');
+    if (!ext)
+	    return (log_error_message(error_log, UNKNOWN_ERR, TRUE));
+    if (ft_strncmp(ext, VALID_MAP_EXT, ft_strlen(ext)) != 0)
+	    return (log_error_message(error_log, MAP_EXT_ERR, TRUE));
+    fd = open(filename, O_RDONLY);
+    if (fd < 0)
+	    return (log_error_message(error_log, READING_MAP_ERR, TRUE));
+    close(fd);
+	return (SUCCESS);
 }
 
 int	main(int argc, char **argv)
 {
-	t_gstate	game;
-    
-    if (argc == 1)
-        handle_error(&game, NO_MAP_ERR);
-    if (argc > 2)
-        handle_error(&game, TOO_MANY_ARGUMENTS_ERR);
-    game.layout = create_layout(argv[1]);
-    if (!game.layout)
-        handle_error(&game, NULL);
-    ft_printf("layout rows %d, layout columns %d\n", game.layout->rows, game.layout->columns);
-	game.window = create_window();
-    init_buffer(&game);
-	if (!game.window.mlx_ptr || !game.window.win_ptr || !game.buffer)
-        handle_error(&game, UNKNOWN_ERR);
-	game.ground = create_ground(game.window);
-    render_buffer(&game);
-	mlx_loop(game.window.mlx_ptr);
+	t_gstate    *game;
+	t_list      *error_log;
+
+	error_log = NULL;
+    handle_error(argc != 1, NULL, (t_error){
+		    NULL, NO_MAP_ERR, &error_log, TRUE});
+    handle_error(argc <= 2, NULL, (t_error){
+		    NULL, TOO_MANY_ARGUMENTS_ERR, &error_log, TRUE});
+	handle_error(validate_mapfile(argv[1], &error_log), NULL, (t_error){
+			NULL, GAME_ERR, &error_log, TRUE});
+	handle_error(init_game(argv[1], &error_log), NULL, (t_error){
+		NULL, NULL, &error_log, TRUE});
 	return (0);
 }

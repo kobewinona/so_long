@@ -14,11 +14,13 @@
 # define TYPES_H
 
 typedef enum e_obj_type {
-    EMPTY,
-	PLAYER,
+	EMPTY,
+    GROUND,
 	WALL,
-	GROUND,
-	COLLECTABLE
+	PLAYER,
+	COLLECTABLE,
+    EXIT,
+    INVALID
 }	t_obj_type;
 
 #endif

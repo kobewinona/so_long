@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_error.c                                      :+:      :+:    :+:   */
+/*   layout_buffer.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dklimkin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/11 15:48:37 by dklimkin          #+#    #+#             */
-/*   Updated: 2023/12/11 15:48:38 by dklimkin         ###   ########.fr       */
+/*   Created: 2023/12/12 15:32:11 by dklimkin          #+#    #+#             */
+/*   Updated: 2023/12/12 15:32:12 by dklimkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "print_error.h"
+#ifndef LAYOUT_BUFFER_H
+#define LAYOUT_BUFFER_H
+# include "so_long.h"
+# include "../types_table/types_table.h"
 
-void    print_error_msg(char *err_msg)
-{
-    if (err_msg)
-    {
-        ft_putstr_fd(RED, STDERR_FILENO);
-        ft_putstr_fd("Error\n", STDERR_FILENO);
-        ft_putstr_fd(GREY, STDERR_FILENO);
-        ft_putstr_fd(err_msg, STDERR_FILENO);
-        ft_putstr_fd(DEFAULT, STDERR_FILENO);
-    }
-    ft_putchar_fd('\n', STDERR_FILENO);
-}
+int init_layout_buffer(char *map, t_obj_type ***buffer, t_obj_type *types_table, t_list **error_log);
+
+#endif

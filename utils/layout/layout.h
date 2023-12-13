@@ -13,24 +13,22 @@
 #ifndef LAYOUT_H
 #define LAYOUT_H
 # include "so_long.h"
-# include "libgnl.h"
-# include "../print_error/print_error.h"
+# include "./types_table/types_table.h"
+# include "./layout_buffer/layout_buffer.h"
+# include "./layout_validator/layout_validator.h"
 
-// is file extension valid ✔
-// is layout size valid ✖
-// is obj count valid ✖
-// is map rectangular ✖
-// is layout surrounded by walls ✖
-// are collectables accessible ✖
-// are all the objs valid ✖
+typedef struct s_layout t_layout;
 
-// TODO grid is the same as buffer - maybe put buffer here instead of gstate (?)
-typedef struct s_layout {
-    int     rows;
-    int     columns;
-    char    **grid;
-}   t_layout;
+struct s_layout {
+    int         rows;
+    int         columns;
+    t_obj_type  *types_table;
+    t_obj_type  **buffer;
+	void	    (*cleanup)(t_layout **);
+};
 
-t_layout   *create_layout(char *filename);
+int     create_layout(t_layout **layout, char *filename, t_list **error_log);
+void    cleanup(t_layout **layout);
+//void        print_layout_buffer(t_layout *layout);
 
 #endif

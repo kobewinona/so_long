@@ -14,8 +14,8 @@
 
 void	draw_shape(t_shape shape, t_img img)
 {
-	unsigned int	y;
-	unsigned int	x;
+	int	y;
+	int	x;
 
 	y = 0;
 	while (y < shape.height && (y + shape.y) < img.height)

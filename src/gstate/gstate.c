@@ -12,69 +12,34 @@
 
 #include "gstate.h"
 
-static void handle_error(t_gstate *game)
+void    cleanup_game(void **ptr)
 {
-    int y;
+	t_gstate    *game;
 
-    if (game->buffer)
-    {
-        y = 0;
-        while (game->buffer[y])
-        {
-            free(game->buffer[y]);
-            y++;
-        }
-        free(game->buffer);
-    }
+	game = (t_gstate *)*ptr;
+	if (game)
+	{
+		if (game->layout && game->layout->cleanup)
+			game->layout->cleanup(&game->layout);
+		free(game);
+	}
 }
 
-void	render_buffer(t_gstate	*game)
+int init_game(char *map, t_list **error_log)
 {
-    int	rows;
-    int	columns;
-    int	x;
-    int	y;
+	t_gstate    *game;
 
-    rows = WINDOW_HEIGHT / TILE_HEIGHT;
-    columns = WINDOW_WIDTH / TILE_WIDTH;
-    y = 0;
-    while (y < rows)
-    {
-        x = 0;
-        while (x < columns)
-        {
-            if (game->buffer[y][x] == GROUND)
-                game->ground->render_ground(x, y, game->ground);
-            x++;
-        }
-        y++;
-    }
-}
-
-void	init_buffer(t_gstate *game)
-{
-    int	rows;
-    int	columns;
-    int	x;
-    int	y;
-
-    rows = WINDOW_HEIGHT / TILE_HEIGHT;
-    columns = WINDOW_WIDTH / TILE_WIDTH;
-    game->buffer = malloc((rows * sizeof(t_obj_type *)));
-    if (!game->buffer)
-        return (handle_error(game));
-    y = 0;
-    while (y < rows)
-    {
-        game->buffer[y] = malloc((columns * sizeof(t_obj_type)));
-        if (!game->buffer[y])
-            return (handle_error(game));
-        x = 0;
-        while (x < columns)
-        {
-            game->buffer[y][x] = EMPTY;
-            x++;
-        }
-        y++;
-    }
+	game = (t_gstate *)malloc(sizeof(t_gstate));
+	if (!game)
+		return (print_error_message(UNKNOWN_ERR, TRUE));
+	game->error_log = error_log;
+	handle_error(create_layout(&game->layout, map, game->error_log), &game, (t_error){
+			&cleanup_game, GAME_ERR, game->error_log, TRUE});
+//	game.window = create_window();
+//	if (!game.window.mlx_ptr || !game.window.win_ptr)
+//        handle_error(&game, UNKNOWN_ERR);
+//	game.ground = create_ground(game.window);
+//	mlx_loop(game.window.mlx_ptr);
+	cleanup_game((void **)&game);
+	return (SUCCESS);
 }
