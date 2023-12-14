@@ -41,7 +41,7 @@ t_ground	*create_ground(t_win window)
 			ground->width, ground->height, window.mlx_ptr);
 	draw_shape((t_shape){
 		0, 0, ground->width, ground->height, ground->color
-	}, *(ground->sprite));
+	}, (t_xy){0, 0}, *(ground->sprite));
 	ground->render_ground = render_ground;
 	return (ground);
 }

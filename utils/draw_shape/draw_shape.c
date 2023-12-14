@@ -12,20 +12,16 @@
 
 #include "draw_shape.h"
 
-void	draw_shape(t_shape shape, t_img img)
+void	draw_shape(t_shape shape, t_xy temp, t_img img)
 {
-	int	y;
-	int	x;
-
-	y = 0;
-	while (y < shape.height && (y + shape.y) < img.height)
+	while (temp.y < shape.height && (temp.y + shape.y) < img.height)
 	{
-		x = 0;
-		while (x < shape.width && (x + shape.x) < img.width)
+		temp.x = 0;
+		while (temp.x < shape.width && (temp.x + shape.x) < img.width)
 		{
-			put_pixel_img(img, x + shape.x, y + shape.y, shape.color);
-			x++;
+			put_pixel_img(img, (t_xy){temp.x + shape.x, temp.y + shape.y}, shape.color);
+			temp.x++;
 		}
-		y++;
+		temp.y++;
 	}
 }

@@ -19,24 +19,23 @@ static int  validate_mapfile(char *filename, t_list **error_log)
 
     ext = ft_strrchr(filename, '.');
     if (!ext)
-	    return (log_error_message(error_log, UNKNOWN_ERR, TRUE));
-    if (ft_strncmp(ext, VALID_MAP_EXT, ft_strlen(ext)) != 0)
-	    return (log_error_message(error_log, MAP_EXT_ERR, TRUE));
+	    return (log_error_message(error_log, UNKNOWN_ERR, ERROR));
+    if (ft_strncmp(ext, VALID_MAPFILE_EXT, ft_strlen(ext)) != 0)
+	    return (log_error_message(error_log, MAPFILE_EXT_ERR, ERROR));
     fd = open(filename, O_RDONLY);
     if (fd < 0)
-	    return (log_error_message(error_log, READING_MAP_ERR, TRUE));
+	    return (log_error_message(error_log, READING_MAPFILE_ERR, ERROR));
     close(fd);
 	return (SUCCESS);
 }
 
 int	main(int argc, char **argv)
 {
-	t_gstate    *game;
 	t_list      *error_log;
 
 	error_log = NULL;
     handle_error(argc != 1, NULL, (t_error){
-		    NULL, NO_MAP_ERR, &error_log, TRUE});
+		    NULL, NO_MAPFILE_ERR, &error_log, TRUE});
     handle_error(argc <= 2, NULL, (t_error){
 		    NULL, TOO_MANY_ARGUMENTS_ERR, &error_log, TRUE});
 	handle_error(validate_mapfile(argv[1], &error_log), NULL, (t_error){

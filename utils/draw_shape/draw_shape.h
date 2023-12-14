@@ -23,6 +23,6 @@ typedef struct s_shape {
 	int	color;
 }	t_shape;
 
-void	draw_shape(t_shape shape, t_img img);
+void	draw_shape(t_shape shape, t_xy temp, t_img img);
 
 #endif

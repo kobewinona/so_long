@@ -20,6 +20,7 @@
 # include "libgnl.h"
 # include "../libs/minilibx_macos/mlx.h"
 # include "constants.h"
+# include "temps.h"
 # include "types.h"
 # include "../utils/error_handler/error_handler.h"
 

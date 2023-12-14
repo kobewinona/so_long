@@ -1,27 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   types.h                                            :+:      :+:    :+:   */
+/*   errors_loger.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dklimkin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/07 19:15:39 by dklimkin          #+#    #+#             */
-/*   Updated: 2023/12/07 19:15:44 by dklimkin         ###   ########.fr       */
+/*   Created: 2023/12/14 18:35:28 by dklimkin          #+#    #+#             */
+/*   Updated: 2023/12/14 18:35:30 by dklimkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TYPES_H
-# define TYPES_H
-
-typedef enum e_obj_type {
-	EMPTY,
-    GROUND,
-	WALL,
-	PLAYER,
-	COLLECTABLE,
-    EXIT,
-    INVALID,
-	VISITED
-}	t_obj_type;
+#ifndef ERRORS_LOGGER_H
+#define ERRORS_LOGGER_H
+# include "so_long.h"
 
 #endif

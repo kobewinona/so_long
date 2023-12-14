@@ -12,7 +12,7 @@
 
 #include "error_handler.h"
 
-int print_error_message(char *message, int is_on_exit)
+int print_error_message(char *message, int return_value)
 {
 	if (message)
 	{
@@ -23,9 +23,7 @@ int print_error_message(char *message, int is_on_exit)
 		ft_putstr_fd(message, STDERR_FILENO);
 		ft_putstr_fd(DEFAULT, STDERR_FILENO);
 	}
-	if (is_on_exit)
-		return (ERROR);
-	return (SUCCESS);
+	return (return_value);
 }
 
 static void print_error_log(t_list **error_log)
@@ -57,7 +55,7 @@ static int  is_message_duplicated(t_list *error_log, char *message)
 	return (FALSE);
 }
 
-int    log_error_message(t_list **error_log, char *error_message, int is_on_exit)
+int    log_error_message(t_list **error_log, char *error_message, int return_value)
 {
 	char    *message;
 	t_list  *new_log;
@@ -66,15 +64,13 @@ int    log_error_message(t_list **error_log, char *error_message, int is_on_exit
 	{
 		message = ft_strdup(error_message);
 		if (!message)
-			return (print_error_message(UNKNOWN_ERR, TRUE));
+			return (print_error_message(UNKNOWN_ERR, return_value));
 		new_log = ft_lstnew(message);
 		if (!new_log)
-			return (print_error_message(UNKNOWN_ERR, TRUE));
+			return (print_error_message(UNKNOWN_ERR, return_value));
 		ft_lstadd_front(error_log, new_log);
 	}
-	if (is_on_exit)
-		return (ERROR);
-	return (SUCCESS);
+	return (return_value);
 }
 
 void    handle_error(int result, void *component, t_error error)

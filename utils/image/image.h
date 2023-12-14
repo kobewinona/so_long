@@ -16,13 +16,13 @@
 # include "../../libs/minilibx_macos/mlx.h"
 
 typedef struct s_img {
-	void			*img_ptr;
-	char			*addr;
-	unsigned int	width;
-	unsigned int	height;
-	int				bpp;
-	int				endian;
-	int				line_len;
+	void    *img_ptr;
+	char    *addr;
+	int	    width;
+	int	    height;
+	int		bpp;
+	int		endian;
+	int		line_len;
 }	t_img;
 
 t_img	*create_image(int width, int height, void *mlx_ptr);

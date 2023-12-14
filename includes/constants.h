@@ -17,7 +17,7 @@
 # define TITLE "so_long"
 
 // map extension
-# define VALID_MAP_EXT ".ber"
+# define VALID_MAPFILE_EXT ".ber"
 
 // magic numbers
 # define TRUE 1
@@ -43,6 +43,10 @@
 // colors
 # define RED "\033[31m"
 # define GREY "\033[90m"
+# define DARK_GREEN "\033[32m"
+# define DARK_BLUE "\033[34m"
+# define DARK_PINK "\033[35m"
+# define DARK_PURPLE "\033[35m"
 # define DEFAULT "\033[0m"
 
 // error messages
@@ -50,10 +54,10 @@
 # define UNKNOWN_ERR "unknown error occurred, please try again\n"
 
 // map errors
-# define NO_MAP_ERR "no map provided\n"
+# define NO_MAPFILE_ERR "no map provided\n"
 # define TOO_MANY_ARGUMENTS_ERR "only a map must be provided\n"
-# define READING_MAP_ERR "failed to read map file\n"
-# define MAP_EXT_ERR "map file extension must be .ber\n"
+# define READING_MAPFILE_ERR "failed to read map file\n"
+# define MAPFILE_EXT_ERR "map file extension must be .ber\n"
 
 // layout errors
 # define LAYOUT_ERR "failed to create a layout\n"
@@ -63,11 +67,11 @@
 
 // layout validation errors
 # define LAYOUT_VALIDATION_ERR "map is not valid\n"
-# define MAP_NOT_RECTANGULAR_ERR "map is not rectangular\n"
-# define MAP_TOO_SMALL_ERR "map is too small\n"
+# define RECTANGULAR_ERR "map is not rectangular\n"
 # define WALLS_SURROUNDED_ERR "map must be surrounded with walls\n"
 # define PLAYERS_COUNT_ERR "there must be 1 player on the map\n"
 # define COLLECTABLES_COUNT_ERR "there must be at least 1 collectable on the map\n"
 # define EXITS_COUNT_ERR "there must be 1 exit on the map\n"
+# define SOLVABLE_ERR "map must be solvable\n"
 
 #endif

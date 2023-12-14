@@ -31,8 +31,4 @@
 ==58843== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 53 from 4)
  */
 
-// TODO delete cached .idea folder from GitHub repo
-
-void    cleanup_game(void **ptr);
-
 #endif

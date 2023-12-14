@@ -30,5 +30,5 @@ void	create_player(t_win *window)
 			player->width, player->height, window);
 	draw_shape((t_shape){
 		0, 0, player->width, player->height, player->color
-	}, *(player->sprite));
+	}, (t_xy){0, 0}, *(player->sprite));
 }

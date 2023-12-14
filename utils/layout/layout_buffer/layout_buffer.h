@@ -15,6 +15,6 @@
 # include "so_long.h"
 # include "../types_table/types_table.h"
 
-int init_layout_buffer(char *map, t_obj_type ***buffer, t_obj_type *types_table, t_list **error_log);
+int init_layout_buffer(const char *mapfile, t_obj_type ***buffer, t_obj_type *types_table, t_list **error_log);
 
 #endif

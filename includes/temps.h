@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   types.h                                            :+:      :+:    :+:   */
+/*   temps.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dklimkin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/07 19:15:39 by dklimkin          #+#    #+#             */
-/*   Updated: 2023/12/07 19:15:44 by dklimkin         ###   ########.fr       */
+/*   Created: 2023/12/14 17:37:40 by dklimkin          #+#    #+#             */
+/*   Updated: 2023/12/14 17:37:41 by dklimkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TYPES_H
-# define TYPES_H
+#ifndef TEMPS_H
+#define TEMPS_H
 
-typedef enum e_obj_type {
-	EMPTY,
-    GROUND,
-	WALL,
-	PLAYER,
-	COLLECTABLE,
-    EXIT,
-    INVALID,
-	VISITED
-}	t_obj_type;
+typedef struct s_xy {
+	int x;
+	int y;
+}   t_xy;
+
+typedef struct s_size {
+	int width;
+	int height;
+}   t_size;
+
+typedef struct s_xy_size {
+	int x;
+	int y;
+	int width;
+	int height;
+}   t_xy_size;
 
 #endif

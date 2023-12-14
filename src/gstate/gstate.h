@@ -24,7 +24,7 @@ typedef struct s_gstate {
 	t_list      **error_log;
 }	t_gstate;
 
-int     init_game(char *map, t_list **error_log);
+int     init_game(const char *mapfile, t_list **error_log);
 void    cleanup_game(void **ptr);
 
 #endif

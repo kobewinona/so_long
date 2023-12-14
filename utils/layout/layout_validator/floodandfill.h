@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   types.h                                            :+:      :+:    :+:   */
+/*   floodandfill.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dklimkin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/07 19:15:39 by dklimkin          #+#    #+#             */
-/*   Updated: 2023/12/07 19:15:44 by dklimkin         ###   ########.fr       */
+/*   Created: 2023/12/14 13:16:56 by dklimkin          #+#    #+#             */
+/*   Updated: 2023/12/14 13:17:30 by dklimkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TYPES_H
-# define TYPES_H
+#ifndef FLOODANDFILL_H
+#define FLOODANDFILL_H
 
-typedef enum e_obj_type {
-	EMPTY,
-    GROUND,
-	WALL,
-	PLAYER,
-	COLLECTABLE,
-    EXIT,
-    INVALID,
-	VISITED
-}	t_obj_type;
+#include <stdbool.h>
+# include "so_long.h"
+# include "layout_validator.h"
+# include <stdio.h>
+
+typedef struct s_ff {
+	bool    **buffer;
+	int     players_x;
+	int     players_y;
+	int     collectables_count;
+	int     is_exit_found;
+}   t_ff;
 
 #endif

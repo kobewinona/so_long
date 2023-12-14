@@ -21,9 +21,8 @@ int is_type_valid(const t_obj_type *types_table, t_obj_type src)
 	i = 0;
 	while (i < 256)
 	{
-		if (types_table[i] == src)
+		if (types_table[i++] == src)
 			return (TRUE);
-		i++;
 	}
 	return (FALSE);
 }
@@ -41,13 +40,10 @@ int create_types_table(t_obj_type **types_table, t_list **error_log)
 
 	*types_table = (t_obj_type *)malloc(256 * sizeof(t_obj_type));
 	if (!(*types_table))
-		return (log_error_message(error_log, TYPES_TABLE_ERR, TRUE));
+		return (log_error_message(error_log, TYPES_TABLE_ERR, ERROR));
 	i = 0;
 	while (i < 256)
-	{
-		(*types_table)[i] = INVALID;
-		i++;
-	}
+		(*types_table)[i++] = INVALID;
 	(*types_table)['0'] = GROUND;
 	(*types_table)['1'] = WALL;
 	(*types_table)['P'] = PLAYER;

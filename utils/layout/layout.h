@@ -24,11 +24,12 @@ struct s_layout {
     int         columns;
     t_obj_type  *types_table;
     t_obj_type  **buffer;
+	void        (*print_buffer)(t_layout *, t_xy);
 	void	    (*cleanup)(t_layout **);
 };
 
-int     create_layout(t_layout **layout, char *filename, t_list **error_log);
-void    cleanup(t_layout **layout);
-//void        print_layout_buffer(t_layout *layout);
+int     create_layout(t_layout **layout, const char *mapfile, t_list **error_log);
+void    print_buffer(t_layout *layout, t_xy temp);
+void    cleanup_layout(t_layout **layout);
 
 #endif

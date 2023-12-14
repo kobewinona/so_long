@@ -12,8 +12,9 @@
 
 #ifndef PUT_PIXEL_IMG_H
 # define PUT_PIXEL_IMG_H
+# include "temps.h"
 # include "../image/image.h"
 
-void	put_pixel_img(t_img img, int x, int y, int color);
+void	put_pixel_img(t_img img, t_xy temp, int color);
 
 #endif

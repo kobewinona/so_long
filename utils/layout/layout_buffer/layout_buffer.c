@@ -12,10 +12,10 @@
 
 #include "layout_buffer.h"
 
-static int cleanup_on_exit(char *line)
+static int cleanup_on_exit(char *line, t_list **error_log)
 {
     free(line);
-    return (ERROR);
+	return (log_error_message(error_log, UNKNOWN_ERR, ERROR));
 }
 
 static int count_columns(const char *line)
@@ -28,7 +28,7 @@ static int count_columns(const char *line)
     return (count);
 }
 
-static int  adjust_layout_buffer_size(int rows, t_obj_type ***buffer)
+static int  adjust_layout_buffer_size(int rows, t_obj_type ***buffer, t_list **error_log)
 {
 	size_t      old_size;
 	size_t      new_size;
@@ -38,7 +38,7 @@ static int  adjust_layout_buffer_size(int rows, t_obj_type ***buffer)
 	new_size = ((rows + 2) * sizeof(t_obj_type *));
 	new_buffer = ft_realloc(*buffer,  old_size, new_size);
 	if (!new_buffer)
-		return (ERROR);
+		return (log_error_message(error_log, UNKNOWN_ERR, ERROR));
 	ft_bzero((new_buffer + rows), (2 * sizeof(t_obj_type *)));
 	*buffer = new_buffer;
 	return (SUCCESS);
@@ -56,34 +56,31 @@ static int fill_layout_buffer_row(t_obj_type *types_table, t_obj_type *buffer, c
 		if (is_type_valid(types_table, type))
             buffer[i] = type;
 		else
-		{
-			log_error_message(error_log, INVALID_OBJ_ERR, FALSE);
-			return (ERROR);
-		}
+			return (log_error_message(error_log, INVALID_OBJ_ERR, ERROR));
         i++;
     }
 	buffer[i] = EMPTY;
 	return (SUCCESS);
 }
 
-int init_layout_buffer(char *map, t_obj_type ***buffer, t_obj_type *types_table, t_list **error_log)
+int init_layout_buffer(const char *mapfile, t_obj_type ***buffer, t_obj_type *types_table, t_list **error_log)
 {
 	int     fd;
     char    *line;
     int     y;
 
     y = 0;
-	fd = open(map, O_RDONLY);
+	fd = open(mapfile, O_RDONLY);
     line = get_next_line(fd);
     while (line)
     {
-		if (adjust_layout_buffer_size(y, buffer) != SUCCESS)
-			return (cleanup_on_exit(line));
+		if (adjust_layout_buffer_size(y, buffer, error_log) != SUCCESS)
+			return (cleanup_on_exit(line, error_log));
 	    (*buffer)[y] = (t_obj_type *)ft_calloc((count_columns(line) + 1), sizeof(t_obj_type));
         if (!(*buffer)[y])
-	        return (cleanup_on_exit(line));
+	        return (cleanup_on_exit(line, error_log));
 		if (fill_layout_buffer_row(types_table, (*buffer)[y], line, error_log) != SUCCESS)
-			return (cleanup_on_exit(line));
+			return (cleanup_on_exit(line, error_log));
         free(line);
         line = get_next_line(fd);
         y++;

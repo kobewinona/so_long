@@ -17,6 +17,7 @@
 
 typedef void (*cleanup_func)(void **);
 
+// TODO use a better name for this structure
 typedef struct s_error {
 	cleanup_func    cleanup;
 	char            *message;
@@ -24,9 +25,8 @@ typedef struct s_error {
 	int             is_fatal;
 }   t_error;
 
-// TODO Do I need "is_on_exit"? Maybe just pass FALSE or ERROR instead so it would return exactly that?
 void    handle_error(int result, void *component, t_error error);
-int     log_error_message(t_list **error_log, char *error_message, int is_on_exit);
+int     log_error_message(t_list **error_log, char *error_message, int return_value);
 int     print_error_message(char *message, int is_on_exit);
 
 #endif
