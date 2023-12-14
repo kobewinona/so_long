@@ -1,6 +1,7 @@
-# vs code
+# IDE
 .vscode
 .idea
+so_long.dSYM
 
 # program
 a.out
