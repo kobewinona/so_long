@@ -15,12 +15,12 @@
 
 typedef enum e_obj_type {
 	EMPTY,
-    GROUND,
+	GROUND,
 	WALL,
 	PLAYER,
 	COLLECTABLE,
-    EXIT,
-    INVALID,
+	EXIT,
+	INVALID,
 	VISITED
 }	t_obj_type;
 

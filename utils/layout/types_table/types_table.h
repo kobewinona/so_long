@@ -11,11 +11,11 @@
 /* ************************************************************************** */
 
 #ifndef TYPES_TABLE_H
-#define TYPES_TABLE_H
+# define TYPES_TABLE_H
 # include "so_long.h"
 
-int         create_types_table(t_obj_type **types_table, t_list **error_log);
-t_obj_type  match_type(const t_obj_type *table, int src);
-int         is_type_valid(const t_obj_type *types_table, t_obj_type src);
+int			create_types_table(t_obj_type **types_table, t_list **error_log);
+t_obj_type	match_type(const t_obj_type *table, int src);
+int			is_type_valid(const t_obj_type *types_table, t_obj_type src);
 
 #endif

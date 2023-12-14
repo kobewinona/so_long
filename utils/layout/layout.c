@@ -12,9 +12,9 @@
 
 #include "layout.h"
 
-void    cleanup_layout(t_layout **layout)
+void	cleanup_layout(t_layout **layout)
 {
-	int y;
+	int	y;
 
 	if ((*layout))
 	{
@@ -34,11 +34,11 @@ void    cleanup_layout(t_layout **layout)
 	}
 }
 
-void    print_buffer(t_layout *layout, t_xy temp)
+void	print_buffer(t_layout *layout, t_xy temp)
 {
 	if (layout->buffer)
 	{
-		while(layout->buffer[temp.y])
+		while (layout->buffer[temp.y])
 		{
 			temp.x = 0;
 			while (layout->buffer[temp.y][temp.x] != EMPTY)
@@ -63,7 +63,7 @@ void    print_buffer(t_layout *layout, t_xy temp)
 	}
 }
 
-int create_layout(t_layout **layout, const char *mapfile, t_list **error_log)
+int	create_layout(t_layout **layout, const char *mapfile, t_list **error_log)
 {
 	*layout = (t_layout *)malloc(sizeof(t_layout));
 	if (!(*layout))
@@ -74,9 +74,12 @@ int create_layout(t_layout **layout, const char *mapfile, t_list **error_log)
 	(*layout)->cleanup = &cleanup_layout;
 	if (create_types_table(&(*layout)->types_table, error_log) != SUCCESS)
 		return (log_error_message(error_log, LAYOUT_ERR, ERROR));
-	if (init_layout_buffer(mapfile, &(*layout)->buffer, (*layout)->types_table, error_log) != SUCCESS)
+	if (init_layout_buffer(
+			mapfile, &(*layout)->buffer,
+			(*layout)->types_table, error_log) != SUCCESS)
 		return (log_error_message(error_log, BUFFER_ERR, ERROR));
-	if (is_layout_valid((const t_obj_type *const *)(*layout)->buffer, error_log) != TRUE)
+	if (is_layout_valid(
+			(const t_obj_type * const *)(*layout)->buffer, error_log) != TRUE)
 		return (log_error_message(error_log, LAYOUT_VALIDATION_ERR, ERROR));
 	return (SUCCESS);
 }

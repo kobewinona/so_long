@@ -11,19 +11,20 @@
 /* ************************************************************************** */
 
 #ifndef FLOODANDFILL_H
-#define FLOODANDFILL_H
+# define FLOODANDFILL_H
 
-#include <stdbool.h>
+# include <stdbool.h>
 # include "so_long.h"
 # include "layout_validator.h"
 # include <stdio.h>
 
-typedef struct s_ff {
-	bool    **buffer;
-	int     players_x;
-	int     players_y;
-	int     collectables_count;
-	int     is_exit_found;
-}   t_ff;
+typedef struct s_ff
+{
+	bool	**buffer;
+	int		players_x;
+	int		players_y;
+	int		collectables_count;
+	int		is_exit_found;
+}	t_ff;
 
 #endif

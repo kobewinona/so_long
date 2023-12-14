@@ -12,7 +12,7 @@
 
 #include "error_handler.h"
 
-int print_error_message(char *message, int return_value)
+int	print_error_message(char *message, int return_value)
 {
 	if (message)
 	{
@@ -26,9 +26,9 @@ int print_error_message(char *message, int return_value)
 	return (return_value);
 }
 
-static void print_error_log(t_list **error_log)
+static void	print_error_log(t_list **error_log)
 {
-	t_list  *current;
+	t_list	*current;
 
 	current = *error_log;
 	ft_putstr_fd(GREY, STDERR_FILENO);
@@ -44,7 +44,7 @@ static void print_error_log(t_list **error_log)
 	ft_lstclear(error_log, free);
 }
 
-static int  is_message_duplicated(t_list *error_log, char *message)
+static int	is_message_duplicated(t_list *error_log, char *message)
 {
 	while (error_log)
 	{
@@ -55,10 +55,10 @@ static int  is_message_duplicated(t_list *error_log, char *message)
 	return (FALSE);
 }
 
-int    log_error_message(t_list **error_log, char *error_message, int return_value)
+int	log_error_message(t_list **error_log, char *error_message, int return_value)
 {
-	char    *message;
-	t_list  *new_log;
+	char	*message;
+	t_list	*new_log;
 
 	if (error_message && !is_message_duplicated(*error_log, error_message))
 	{
@@ -73,7 +73,7 @@ int    log_error_message(t_list **error_log, char *error_message, int return_val
 	return (return_value);
 }
 
-void    handle_error(int result, void *component, t_error error)
+void	handle_error(int result, void *component, t_error error)
 {
 	if (result == ERROR || result == FALSE)
 	{

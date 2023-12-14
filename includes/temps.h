@@ -11,23 +11,23 @@
 /* ************************************************************************** */
 
 #ifndef TEMPS_H
-#define TEMPS_H
+# define TEMPS_H
 
 typedef struct s_xy {
-	int x;
-	int y;
-}   t_xy;
+	int	x;
+	int	y;
+}	t_xy;
 
 typedef struct s_size {
-	int width;
-	int height;
-}   t_size;
+	int	width;
+	int	height;
+}	t_size;
 
 typedef struct s_xy_size {
-	int x;
-	int y;
-	int width;
-	int height;
-}   t_xy_size;
+	int	x;
+	int	y;
+	int	width;
+	int	height;
+}	t_xy_size;
 
 #endif

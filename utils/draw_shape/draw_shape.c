@@ -19,7 +19,8 @@ void	draw_shape(t_shape shape, t_xy temp, t_img img)
 		temp.x = 0;
 		while (temp.x < shape.width && (temp.x + shape.x) < img.width)
 		{
-			put_pixel_img(img, (t_xy){temp.x + shape.x, temp.y + shape.y}, shape.color);
+			put_pixel_img(img, (t_xy){
+				temp.x + shape.x, temp.y + shape.y}, shape.color);
 			temp.x++;
 		}
 		temp.y++;

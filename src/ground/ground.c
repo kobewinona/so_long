@@ -15,11 +15,10 @@
 void	render_ground(int x, int y, t_ground *ground)
 {
 	mlx_put_image_to_window(
-            ground->window.mlx_ptr,
-            ground->window.win_ptr,
-            ground->sprite->img_ptr,
-		(x * TILE_WIDTH), (y * TILE_HEIGHT)
-		);
+		ground->window.mlx_ptr,
+		ground->window.win_ptr,
+		ground->sprite->img_ptr,
+		(x * TILE_WIDTH), (y * TILE_HEIGHT));
 }
 
 t_ground	*create_ground(t_win window)
@@ -30,7 +29,7 @@ t_ground	*create_ground(t_win window)
 	if (!ground)
 		return ((void *)0);
 	ground->obj.obj_type = GROUND;
-    ground->window = window;
+	ground->window = window;
 	ground->collision = FALSE;
 	ground->x = 0;
 	ground->y = 0;

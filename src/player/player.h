@@ -27,7 +27,7 @@ typedef struct s_player
 	t_img	*sprite;
 	int		x;
 	int		y;
-}   t_player;
+}	t_player;
 
 void	create_player(t_win *window);
 

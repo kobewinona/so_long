@@ -12,9 +12,9 @@
 
 #include "types_table.h"
 
-int is_type_valid(const t_obj_type *types_table, t_obj_type src)
+int	is_type_valid(const t_obj_type *types_table, t_obj_type src)
 {
-	int i;
+	int	i;
 
 	if (src == INVALID || src == EMPTY)
 		return (FALSE);
@@ -27,16 +27,16 @@ int is_type_valid(const t_obj_type *types_table, t_obj_type src)
 	return (FALSE);
 }
 
-t_obj_type match_type(const t_obj_type *types_table, int src)
+t_obj_type	match_type(const t_obj_type *types_table, int src)
 {
 	if (!types_table)
 		return (INVALID);
 	return (types_table[(unsigned char) src]);
 }
 
-int create_types_table(t_obj_type **types_table, t_list **error_log)
+int	create_types_table(t_obj_type **types_table, t_list **error_log)
 {
-	int i;
+	int	i;
 
 	*types_table = (t_obj_type *)malloc(256 * sizeof(t_obj_type));
 	if (!(*types_table))

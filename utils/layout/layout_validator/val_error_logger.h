@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERRORS_LOGGER_H
-#define ERRORS_LOGGER_H
+#ifndef VAL_ERROR_LOGGER_H
+# define VAL_ERROR_LOGGER_H
 # include "so_long.h"
 
 #endif

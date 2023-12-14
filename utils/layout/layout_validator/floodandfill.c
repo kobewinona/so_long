@@ -12,9 +12,9 @@
 
 #include "floodandfill.h"
 
-static int cleanup_on_exit(t_ff **ff, int return_value)
+static int	cleanup_on_exit(t_ff **ff, int return_value)
 {
-	int y;
+	int	y;
 
 	if (ff && *ff)
 	{
@@ -33,9 +33,9 @@ static int cleanup_on_exit(t_ff **ff, int return_value)
 	return (return_value);
 }
 
-static bool **init_ff_buffer(const t_obj_type *const *buffer, t_xy_size temp)
+static bool	**init_ff_buffer(const t_obj_type *const *buffer, t_xy_size temp)
 {
-	bool    **ff_buffer;
+	bool	**ff_buffer;
 
 	ff_buffer = (bool **)ft_calloc((temp.height + 1), sizeof(bool *));
 	if (!ff_buffer)
@@ -56,7 +56,7 @@ static bool **init_ff_buffer(const t_obj_type *const *buffer, t_xy_size temp)
 	return (ff_buffer);
 }
 
-static void find_player_position(t_ff **ff, const t_obj_type *const *buffer)
+static void	find_player_position(t_ff **ff, const t_obj_type *const *buffer)
 {
 	while (buffer[(*ff)->players_y])
 	{
@@ -71,9 +71,11 @@ static void find_player_position(t_ff **ff, const t_obj_type *const *buffer)
 	}
 }
 
-static void floodandfill(const t_obj_type *const *buffer, t_ff **ff, t_xy_size temp) // NOLINT(*-no-recursion)
+static void	floodandfill(
+		const t_obj_type *const *buffer, t_ff **ff, t_xy_size temp)
 {
-	if (temp.x < 0 || temp.x >= temp.width || temp.y < 0 || temp.y >= temp.height)
+	if (temp.x < 0 || temp.x >= temp.width
+		|| temp.y < 0 || temp.y >= temp.height)
 		return ;
 	if ((*ff)->buffer[temp.y][temp.x] == TRUE)
 		return ;
@@ -82,25 +84,35 @@ static void floodandfill(const t_obj_type *const *buffer, t_ff **ff, t_xy_size t
 		(*ff)->collectables_count--;
 	else if (buffer[temp.y][temp.x] == EXIT)
 		(*ff)->is_exit_found = TRUE;
-	floodandfill(buffer, ff,(t_xy_size){(temp.x + 1), temp.y, temp.width, temp.height});
-	floodandfill(buffer, ff, (t_xy_size){(temp.x - 1), temp.y, temp.width, temp.height});
-	floodandfill(buffer, ff, (t_xy_size){temp.x, (temp.y + 1), temp.width, temp.height});
-	floodandfill(buffer, ff, (t_xy_size){temp.x, (temp.y - 1), temp.width, temp.height});
+	floodandfill(buffer, ff, (t_xy_size){
+		(temp.x + 1), temp.y, temp.width, temp.height});
+	floodandfill(buffer, ff, (t_xy_size){
+		(temp.x - 1), temp.y, temp.width, temp.height});
+	floodandfill(buffer, ff, (t_xy_size){
+		temp.x, (temp.y + 1), temp.width, temp.height});
+	floodandfill(buffer, ff, (t_xy_size){
+		temp.x, (temp.y - 1), temp.width, temp.height});
 }
 
-int is_layout_solvable(const t_obj_type *const *buffer, t_val_info *val_info, t_list **error_log)
+int	is_layout_solvable(
+		const t_obj_type *const *buffer,
+		t_val_info *val_info, t_list **error_log)
 {
-	t_ff    *ff;
+	t_ff	*ff;
 
 	ff = (t_ff *)malloc(sizeof(t_ff));
 	if (!ff)
 		return (log_error_message(error_log, UNKNOWN_ERR, ERROR));
 	*ff = (t_ff){
-		init_ff_buffer(buffer, (t_xy_size){0, 0, val_info->columns, val_info->rows}),
+		init_ff_buffer(buffer, (t_xy_size){
+			0, 0, val_info->columns, val_info->rows}),
 		0, 0, val_info->collectables_count, FALSE};
 	if (!ff->buffer)
-		return (cleanup_on_exit(&ff, log_error_message(error_log, UNKNOWN_ERR, ERROR)));
+		return (cleanup_on_exit(
+				&ff, log_error_message(error_log, UNKNOWN_ERR, ERROR)));
 	find_player_position(&ff, buffer);
-	floodandfill(buffer, &ff, (t_xy_size){ff->players_x, ff->players_y, val_info->columns, val_info->rows});
-	return (cleanup_on_exit(&ff, ff->collectables_count == 0 && ff->is_exit_found));
+	floodandfill(buffer, &ff, (t_xy_size){
+		ff->players_x, ff->players_y, val_info->columns, val_info->rows});
+	return (cleanup_on_exit(
+			&ff, ff->collectables_count == 0 && ff->is_exit_found));
 }

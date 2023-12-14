@@ -12,9 +12,9 @@
 
 #include "gstate.h"
 
-void    cleanup_game(void **ptr)
+void	cleanup_game(void **ptr)
 {
-	t_gstate    *game;
+	t_gstate	*game;
 
 	game = (t_gstate *)*ptr;
 	if (game)
@@ -25,16 +25,17 @@ void    cleanup_game(void **ptr)
 	}
 }
 
-int init_game(const char *mapfile, t_list **error_log)
+int	init_game(const char *mapfile, t_list **error_log)
 {
-	t_gstate    *game;
+	t_gstate	*game;
 
 	game = (t_gstate *)malloc(sizeof(t_gstate));
 	if (!game)
 		return (print_error_message(UNKNOWN_ERR, ERROR));
 	game->error_log = error_log;
-	handle_error(create_layout(&game->layout, mapfile, game->error_log), &game, (t_error){
-			&cleanup_game, GAME_ERR, game->error_log, TRUE});
+	handle_error(create_layout(
+			&game->layout, mapfile, game->error_log), &game, (t_error){
+		&cleanup_game, GAME_ERR, game->error_log, TRUE});
 	game->layout->print_buffer(game->layout, (t_xy){0, 0});
 	cleanup_game((void **)&game);
 	return (SUCCESS);

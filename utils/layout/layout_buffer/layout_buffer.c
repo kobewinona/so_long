@@ -12,31 +12,32 @@
 
 #include "layout_buffer.h"
 
-static int cleanup_on_exit(char *line, t_list **error_log)
+static int	cleanup_on_exit(char *line, t_list **error_log)
 {
-    free(line);
+	free(line);
 	return (log_error_message(error_log, UNKNOWN_ERR, ERROR));
 }
 
-static int count_columns(const char *line)
+static int	count_columns(const char *line)
 {
-    int count;
+	int	count;
 
-    count = 0;
-    while (line[count] && line[count] != '\n')
-        count++;
-    return (count);
+	count = 0;
+	while (line[count] && line[count] != '\n')
+		count++;
+	return (count);
 }
 
-static int  adjust_layout_buffer_size(int rows, t_obj_type ***buffer, t_list **error_log)
+static int	adjust_layout_buffer_size(
+		int rows, t_obj_type ***buffer, t_list **error_log)
 {
-	size_t      old_size;
-	size_t      new_size;
-	t_obj_type  **new_buffer;
+	size_t		old_size;
+	size_t		new_size;
+	t_obj_type	**new_buffer;
 
 	old_size = (rows * sizeof(t_obj_type *));
 	new_size = ((rows + 2) * sizeof(t_obj_type *));
-	new_buffer = ft_realloc(*buffer,  old_size, new_size);
+	new_buffer = ft_realloc(*buffer, old_size, new_size);
 	if (!new_buffer)
 		return (log_error_message(error_log, UNKNOWN_ERR, ERROR));
 	ft_bzero((new_buffer + rows), (2 * sizeof(t_obj_type *)));
@@ -44,47 +45,53 @@ static int  adjust_layout_buffer_size(int rows, t_obj_type ***buffer, t_list **e
 	return (SUCCESS);
 }
 
-static int fill_layout_buffer_row(t_obj_type *types_table, t_obj_type *buffer, char *line, t_list **error_log)
+static int	fill_layout_buffer_row(
+		t_obj_type *types_table, t_obj_type *buffer,
+		char *line, t_list **error_log)
 {
-	t_obj_type  type;
-	int         i;
+	t_obj_type	type;
+	int			i;
 
-    i = 0;
-    while (line[i] && line[i] != '\n')
-    {
-	    type = match_type(types_table, line[i]);
+	i = 0;
+	while (line[i] && line[i] != '\n')
+	{
+		type = match_type(types_table, line[i]);
 		if (is_type_valid(types_table, type))
-            buffer[i] = type;
+			buffer[i] = type;
 		else
 			return (log_error_message(error_log, INVALID_OBJ_ERR, ERROR));
-        i++;
-    }
+		i++;
+	}
 	buffer[i] = EMPTY;
 	return (SUCCESS);
 }
 
-int init_layout_buffer(const char *mapfile, t_obj_type ***buffer, t_obj_type *types_table, t_list **error_log)
+int	init_layout_buffer(
+		const char *mapfile, t_obj_type ***buffer,
+		t_obj_type *types_table, t_list **error_log)
 {
-	int     fd;
-    char    *line;
-    int     y;
+	int		fd;
+	char	*line;
+	int		y;
 
-    y = 0;
+	y = 0;
 	fd = open(mapfile, O_RDONLY);
-    line = get_next_line(fd);
-    while (line)
-    {
+	line = get_next_line(fd);
+	while (line)
+	{
 		if (adjust_layout_buffer_size(y, buffer, error_log) != SUCCESS)
 			return (cleanup_on_exit(line, error_log));
-	    (*buffer)[y] = (t_obj_type *)ft_calloc((count_columns(line) + 1), sizeof(t_obj_type));
-        if (!(*buffer)[y])
-	        return (cleanup_on_exit(line, error_log));
-		if (fill_layout_buffer_row(types_table, (*buffer)[y], line, error_log) != SUCCESS)
+		(*buffer)[y] = (t_obj_type *)ft_calloc(
+				(count_columns(line) + 1), sizeof(t_obj_type));
+		if (!(*buffer)[y])
 			return (cleanup_on_exit(line, error_log));
-        free(line);
-        line = get_next_line(fd);
-        y++;
-    }
+		if (fill_layout_buffer_row(
+				types_table, (*buffer)[y], line, error_log) != SUCCESS)
+			return (cleanup_on_exit(line, error_log));
+		free(line);
+		line = get_next_line(fd);
+		y++;
+	}
 	close(fd);
-    return (SUCCESS);
+	return (SUCCESS);
 }

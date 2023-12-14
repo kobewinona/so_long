@@ -16,11 +16,12 @@
 # include "types.h"
 # include "../../utils/utils.h"
 
-typedef struct s_ground t_ground;
+typedef struct s_ground	t_ground;
 
-struct s_ground {
+struct s_ground
+{
 	t_obj	obj;
-    t_win   window;
+	t_win	window;
 	int		collision;
 	int		width;
 	int		height;

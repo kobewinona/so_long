@@ -12,13 +12,13 @@
 
 #include "put_pixel_img.h"
 
-void	put_pixel_img(t_img img, t_xy temp, int color)
+void	put_pixel_img(t_img img, t_xy tmp, int color)
 {
 	char	*dst;
 
-	if ((temp.x >= 0 && temp.y >= 0) && (temp.x < img.width && temp.y < img.height))
+	if ((tmp.x >= 0 && tmp.y >= 0) && (tmp.x < img.width && tmp.y < img.height))
 	{
-		dst = img.addr + ((temp.y * img.line_len) + (temp.x * (img.bpp / 8)));
+		dst = img.addr + ((tmp.y * img.line_len) + (tmp.x * (img.bpp / 8)));
 		*(unsigned int *)dst = color;
 	}
 }

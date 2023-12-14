@@ -22,7 +22,7 @@
 // magic numbers
 # define TRUE 1
 # define FALSE 0
-# define ERROR (-1)
+# define ERROR -1
 # define SUCCESS 2
 
 // keyboard keys
@@ -69,9 +69,9 @@
 # define LAYOUT_VALIDATION_ERR "map is not valid\n"
 # define RECTANGULAR_ERR "map is not rectangular\n"
 # define WALLS_SURROUNDED_ERR "map must be surrounded with walls\n"
-# define PLAYERS_COUNT_ERR "there must be 1 player on the map\n"
-# define COLLECTABLES_COUNT_ERR "there must be at least 1 collectable on the map\n"
-# define EXITS_COUNT_ERR "there must be 1 exit on the map\n"
+# define PLAYERS_COUNT_ERR "there must be 1 player\n"
+# define COLLECTABLES_COUNT_ERR "there must be at least 1 collectable\n"
+# define EXITS_COUNT_ERR "there must be 1 exit\n"
 # define SOLVABLE_ERR "map must be solvable\n"
 
 #endif
