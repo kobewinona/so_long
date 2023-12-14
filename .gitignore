@@ -9,7 +9,7 @@ so_long
 so_long_asan
 
 #objects
-./obj
+obj
 
 # rest
 .DS_store
