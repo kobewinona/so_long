@@ -30,6 +30,20 @@ void	cleanup_buffer(t_obj **buffer)
 	}
 }
 
+void	add_sprites_to_buffer(t_obj **buffer, t_img **sprites, t_xy pos)
+{
+	while (buffer[pos.y])
+	{
+		pos.x = 0;
+		while (buffer[pos.y][pos.x].type != END)
+		{
+			buffer[pos.y][pos.x].sprite = sprites[buffer[pos.y][pos.x].type];
+			pos.x++;
+		}
+		pos.y++;
+	}
+}
+
 void	print_buffer(t_obj **buffer, t_xy pos)
 {
 	if (*buffer)

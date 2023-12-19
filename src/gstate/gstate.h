@@ -14,10 +14,8 @@
 # define GSTATE_H
 # include "so_long.h"
 # include "../layout/layout.h"
-# include "../types_table/types_table.h"
 # include "../map_validator/map_validator.h"
-# include "../player/player.h"
-# include "../wall/wall.h"
+# include "../sprite_handler/sprite_handler.h"
 
 typedef struct s_gstate
 {

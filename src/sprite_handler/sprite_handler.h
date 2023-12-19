@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   layout.h                                           :+:      :+:    :+:   */
+/*   sprite_handler.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dklimkin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/11 14:46:24 by dklimkin          #+#    #+#             */
-/*   Updated: 2023/12/11 14:46:26 by dklimkin         ###   ########.fr       */
+/*   Created: 2023/12/20 00:43:07 by dklimkin          #+#    #+#             */
+/*   Updated: 2023/12/20 00:43:07 by dklimkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LAYOUT_H
-# define LAYOUT_H
+#ifndef SPRITE_HANDLER_H
+# define SPRITE_HANDLER_H
 # include "so_long.h"
-# include "../buffer_handler/buffer_handler.h"
-# include "../map_validator/map_validator.h"
+# include "gdata.h"
+# include "../types_table/types_table.h"
+# include "../player/player.h"
+# include "../wall/wall.h"
+# include "../collectable/collectable.h"
+# include "../exit/exit.h"
 
-typedef struct s_layout	t_layout;
-
-struct s_layout
-{
-	t_obj	**buffer;
-	int		width;
-	int		height;
-};
-
-int		create_layout(
-			t_layout **layout, t_obj **game_buffer, t_list **error_log);
-int		init_layout_buffer(
-			t_obj **game_buffer, t_obj ***layout_buffer,
-			t_size size, t_list **error_log);
+int		create_sprites(t_img ***sprites, t_gdata gdata);
+t_img	*create_sprite(t_obj_type type, t_gdata gdata);
+void	cleanup_sprites(
+			void *mlx_ptr, t_obj_type *types_table, t_img ***sprites);
 
 #endif

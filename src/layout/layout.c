@@ -12,16 +12,6 @@
 
 #include "layout.h"
 
-void	cleanup_layout(t_layout **layout)
-{
-	if ((*layout))
-	{
-		if ((*layout)->buffer)
-			cleanup_buffer((*layout)->buffer);
-		free((*layout));
-	}
-}
-
 static void	define_layout_size(
 		t_size size, t_layout **layout, t_obj **game_buffer)
 {
@@ -46,6 +36,5 @@ int	create_layout(t_layout **layout, t_obj **game_buffer, t_list **error_log)
 			game_buffer, &(*layout)->buffer, (t_size){
 			(*layout)->width, (*layout)->height}, error_log) != SUCCESS)
 		return (log_error_message(error_log, BUFFER_ERR, ERROR));
-	(*layout)->cleanup = &cleanup_layout;
 	return (SUCCESS);
 }

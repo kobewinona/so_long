@@ -16,6 +16,7 @@
 # include "../object/object.h"
 
 void	print_buffer(t_obj **buffer, t_xy pos);
+void	add_sprites_to_buffer(t_obj **buffer, t_img **sprites, t_xy pos);
 void	cleanup_buffer(t_obj **buffer);
 
 #endif

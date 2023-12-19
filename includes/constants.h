@@ -73,8 +73,7 @@
 // window errors
 # define WINDOW_ERR "failed to create a window\n"
 
-// entities errors
-# define CREATE_BACKGROUND_ERR "failed to create background entity\n"
-# define CREATE_WALL_ERR "failed to create wall entity\n"
+// sprite errors
+# define SPRITE_ERR "failed to create a sprite\n"
 
 #endif

@@ -34,7 +34,7 @@ t_obj_type	match_type(const t_obj_type *types_table, int src)
 	return (types_table[(unsigned char) src]);
 }
 
-int	count_valid_types(const t_obj_type *types_table)
+int	count_valid_types(const t_obj_type *table)
 {
 	int	count;
 	int	i;
@@ -43,7 +43,7 @@ int	count_valid_types(const t_obj_type *types_table)
 	i = 0;
 	while (i < 256)
 	{
-		if (types_table[i] != INVALID && types_table[i] != END)
+		if (table[i] != INVALID && table[i] != END)
 			count++;
 		i++;
 	}

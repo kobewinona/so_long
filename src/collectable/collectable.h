@@ -15,19 +15,6 @@
 # include "so_long.h"
 # include "../draw_shape/draw_shape.h"
 
-typedef struct s_collectable	t_collectable;
-
-struct s_collectable
-{
-	int		collision;
-	t_size	size;
-	int		color;
-	t_img	*sprite;
-	void	(*render)(t_win *, t_xy, t_collectable *);
-	void	(*cleanup)(t_collectable **, void *);
-};
-
-int	create_collectable(
-		t_collectable **collectable, void *mlx_ptr, t_list **error_log);
+t_img	*create_collectable_sprite(void *mlx_ptr, t_list **error_log);
 
 #endif

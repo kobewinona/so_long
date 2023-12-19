@@ -20,14 +20,13 @@ typedef struct s_obj	t_obj;
 struct s_obj
 {
 	t_obj_type	type;
-	t_win		*win;
 	t_img		*sprite;
 	int			collision;
-	t_xy		pos;
-	void		(*render)(t_obj);
+	t_xy		position;
+	void		(*render)(t_obj, t_win *);
 };
 
-t_obj	create_object(t_gdata gdata, t_obj_type type, t_xy pos);
-void	render_object(t_obj obj);
+t_obj	create_object(t_gdata gdata, t_obj_type type, t_xy position);
+void	render_object(t_obj obj, t_win *window);
 
 #endif
