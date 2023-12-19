@@ -14,10 +14,17 @@
 
 void	render_object(t_obj obj)
 {
-	mlx_put_image_to_window(
-		obj.win->mlx_ptr, obj.win->win_ptr,
-		obj.sprite->img_ptr,
-		(obj.pos.x * SPRITE_WIDTH), (obj.pos.y * SPRITE_HEIGHT));
+	ft_printf("render_object 1\n");
+	ft_printf("obj.win->mlx_ptr %p\n", obj.win->mlx_ptr);
+	ft_printf("obj.win->win_ptr %p\n", obj.win->win_ptr);
+	ft_printf("obj.sprite->img_ptr %p\n", obj.sprite->img_ptr);
+	if (obj.win->mlx_ptr && obj.win->win_ptr && obj.sprite->img_ptr)
+	{
+		mlx_put_image_to_window(
+			obj.win->mlx_ptr, obj.win->win_ptr,
+			obj.sprite->img_ptr,
+			(obj.pos.x * SPRITE_WIDTH), (obj.pos.y * SPRITE_HEIGHT));
+	}
 }
 
 t_obj	create_object(t_gdata gdata, t_obj_type type, t_xy pos)

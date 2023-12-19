@@ -25,6 +25,7 @@ static void	validate_layout_size(
 	int	mem_x;
 
 	mem_x = 0;
+	(*val_info)->is_rectangular = TRUE;
 	while (buffer[pos.y][mem_x].type != END)
 		mem_x++;
 	while (buffer[pos.y])
@@ -32,7 +33,11 @@ static void	validate_layout_size(
 		pos.x = 0;
 		while (buffer[pos.y][pos.x].type != END)
 			pos.x++;
-		(*val_info)->is_rectangular = mem_x != pos.x;
+		if (mem_x != pos.x)
+		{
+			(*val_info)->is_rectangular = mem_x == pos.x;
+			return ;
+		}
 		pos.y++;
 	}
 	(*val_info)->is_rectangular = pos.x > pos.y;

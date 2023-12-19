@@ -56,7 +56,7 @@ int	create_types_table(t_obj_type **types_table, t_list **error_log)
 
 	*types_table = (t_obj_type *)malloc(256 * sizeof(t_obj_type));
 	if (!(*types_table))
-		return (log_error_message(error_log, TYPES_TABLE_ERR, ERROR));
+		return (ERROR);
 	i = 0;
 	while (i < 256)
 		(*types_table)[i++] = INVALID;

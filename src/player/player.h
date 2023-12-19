@@ -16,6 +16,6 @@
 # include "gdata.h"
 # include "../draw_shape/draw_shape.h"
 
-t_img	*create_player_sprite(t_gdata gdata);
+t_img	*create_player_sprite(void *mlx_ptr, t_list **error_log);
 
 #endif

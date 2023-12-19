@@ -15,7 +15,7 @@
 static int	cleanup_on_exit(char *line, t_list **error_log)
 {
 	free(line);
-	return (log_error_message(error_log, BUFFER_ERR, ERROR));
+	return (ERROR);
 }
 
 static int	count_width(const char *line)

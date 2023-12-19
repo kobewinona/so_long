@@ -31,7 +31,6 @@ typedef struct s_gstate
 
 int		init_game(const char *mapfile, t_list **error_log);
 int		init_game_buffer(const char *mapfile, t_obj ***buffer, t_gdata gdata);
-t_img	*create_sprite(t_obj_type type);
 void	cleanup_game(void **ptr);
 
 #endif

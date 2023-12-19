@@ -33,6 +33,6 @@ void	log_validation_errors(t_val_info *val_info, t_list **error_log)
 	{
 		if (val_info->is_solvable == FALSE)
 			val_info->is_valid = log_error_message(
-					error_log, SOLVABLE_ERR, FALSE);
+					error_log, UNSOLVABLE_ERR, FALSE);
 	}
 }

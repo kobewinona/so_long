@@ -14,6 +14,7 @@
 # define LAYOUT_H
 # include "so_long.h"
 # include "../buffer_handler/buffer_handler.h"
+# include "../map_validator/map_validator.h"
 
 typedef struct s_layout	t_layout;
 

@@ -21,8 +21,6 @@
 # include "libgnl.h"
 # include "../libs/minilibx_macos/mlx.h"
 # include "constants.h"
-# include "temps.h"
-# include "types.h"
 # include "../utils/utils.h"
 
 #endif

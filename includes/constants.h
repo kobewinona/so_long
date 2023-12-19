@@ -41,7 +41,6 @@
 # define GREY "\033[90m"
 # define DARK_GREEN "\033[32m"
 # define DARK_BLUE "\033[34m"
-# define DARK_PINK "\033[35m"
 # define DARK_PURPLE "\033[35m"
 # define DEFAULT "\033[0m"
 
@@ -63,13 +62,13 @@
 # define INVALID_OBJ_ERR "invalid map characters found\n"
 
 // layout validation errors
-# define LAYOUT_VALIDATION_ERR "map is not valid\n"
+# define VALIDATION_ERR "map is not valid\n"
 # define RECTANGULAR_ERR "map is not rectangular\n"
 # define WALLS_SURROUNDED_ERR "map must be surrounded with walls\n"
 # define PLAYERS_COUNT_ERR "there must be 1 player\n"
 # define COLLECTABLES_COUNT_ERR "there must be at least 1 collectable\n"
 # define EXITS_COUNT_ERR "there must be 1 exit\n"
-# define SOLVABLE_ERR "map must be solvable\n"
+# define UNSOLVABLE_ERR "map must be solvable\n"
 
 // window errors
 # define WINDOW_ERR "failed to create a window\n"
