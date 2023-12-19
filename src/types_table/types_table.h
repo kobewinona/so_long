@@ -1,43 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   types_table.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dklimkin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/01 14:51:34 by dklimkin          #+#    #+#             */
-/*   Updated: 2023/12/01 14:51:35 by dklimkin         ###   ########.fr       */
+/*   Created: 2023/12/12 11:06:31 by dklimkin          #+#    #+#             */
+/*   Updated: 2023/12/12 11:06:32 by dklimkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
-# include "./window/window.h"
-# include "./image/image.h"
-# include "./colors/colors.h"
-# include "./error_handler/error_handler.h"
+#ifndef TYPES_TABLE_H
+# define TYPES_TABLE_H
+# include "so_long.h"
+# include "../../utils/utils.h"
 
-typedef enum e_obj_type
-{
-	EMPTY,
-	WALL,
-	PLAYER,
-	COLLECTABLE,
-	EXIT,
-	END,
-	INVALID
-}	t_obj_type;
-
-typedef struct s_xy
-{
-	int	x;
-	int	y;
-}	t_xy;
-
-typedef struct s_size
-{
-	int	width;
-	int	height;
-}	t_size;
+int			create_types_table(t_obj_type **types_table, t_list **error_log);
+t_obj_type	match_type(const t_obj_type *table, int src);
+int			is_type_valid(const t_obj_type *types_table, t_obj_type src);
+int			count_valid_types(const t_obj_type *types_table);
 
 #endif

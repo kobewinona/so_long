@@ -12,17 +12,20 @@
 
 #include "window.h"
 
-t_win	create_window(void)
+int	create_window(int width, int height, t_win **window, t_list **error_log)
 {
-	t_win	window;
-
-	window.mlx_ptr = mlx_init();
-	window.win_ptr = mlx_new_window(
-			window.mlx_ptr,
-			WINDOW_WIDTH,
-			WINDOW_HEIGHT,
+	*window = (t_win *)malloc(sizeof(t_win));
+	if (!(*window))
+		return (log_error_message(error_log, WINDOW_ERR, ERROR));
+	(*window)->mlx_ptr = mlx_init();
+	(*window)->win_ptr = mlx_new_window(
+			(*window)->mlx_ptr,
+			(width * SPRITE_WIDTH),
+			(height * SPRITE_HEIGHT),
 			TITLE);
-	window.width = WINDOW_WIDTH;
-	window.height = WINDOW_HEIGHT;
-	return (window);
+	if (!(*window)->mlx_ptr || !(*window)->win_ptr)
+		return (log_error_message(error_log, WINDOW_ERR, ERROR));
+	(*window)->width = (width * SPRITE_WIDTH);
+	(*window)->height = (height * SPRITE_HEIGHT);
+	return (SUCCESS);
 }

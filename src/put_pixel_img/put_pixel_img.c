@@ -1,43 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   put_pixel_img.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dklimkin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/01 14:51:34 by dklimkin          #+#    #+#             */
-/*   Updated: 2023/12/01 14:51:35 by dklimkin         ###   ########.fr       */
+/*   Created: 2023/12/04 12:46:04 by dklimkin          #+#    #+#             */
+/*   Updated: 2023/12/04 12:46:05 by dklimkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
-# include "./window/window.h"
-# include "./image/image.h"
-# include "./colors/colors.h"
-# include "./error_handler/error_handler.h"
+#include "put_pixel_img.h"
 
-typedef enum e_obj_type
+void	put_pixel_img(t_img img, t_xy pos, int color)
 {
-	EMPTY,
-	WALL,
-	PLAYER,
-	COLLECTABLE,
-	EXIT,
-	END,
-	INVALID
-}	t_obj_type;
+	char	*dst;
 
-typedef struct s_xy
-{
-	int	x;
-	int	y;
-}	t_xy;
-
-typedef struct s_size
-{
-	int	width;
-	int	height;
-}	t_size;
-
-#endif
+	if ((pos.x >= 0 && pos.y >= 0) && (pos.x < img.width && pos.y < img.height))
+	{
+		dst = img.addr + ((pos.y * img.line_len) + (pos.x * (img.bpp / 8)));
+		*(unsigned int *)dst = color;
+	}
+}

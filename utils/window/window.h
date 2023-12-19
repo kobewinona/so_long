@@ -14,13 +14,14 @@
 # define WINDOW_H
 # include "so_long.h"
 
-typedef struct s_win {
+typedef struct s_win
+{
 	void		*mlx_ptr;
 	void		*win_ptr;
 	int			width;
 	int			height;
 }	t_win;
 
-t_win	create_window(void);
+int	create_window(int width, int height, t_win **window, t_list **error_log);
 
 #endif

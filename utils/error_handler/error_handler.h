@@ -13,9 +13,7 @@
 #ifndef ERROR_HANDLER_H
 # define ERROR_HANDLER_H
 # include "so_long.h"
-# include "../layout/layout.h"
 
-// TODO use a better name for this structure
 typedef struct s_error
 {
 	void	(*cleanup)(void **);

@@ -14,6 +14,7 @@
 # define SO_LONG_H
 # include <OpenGL/gl.h>
 # include <math.h>
+# include <stdbool.h>
 # include <fcntl.h>
 # include "libft.h"
 # include "libftprintf.h"
@@ -22,6 +23,6 @@
 # include "constants.h"
 # include "temps.h"
 # include "types.h"
-# include "../utils/error_handler/error_handler.h"
+# include "../utils/utils.h"
 
 #endif

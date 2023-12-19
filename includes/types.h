@@ -13,15 +13,15 @@
 #ifndef TYPES_H
 # define TYPES_H
 
-typedef enum e_obj_type {
-	EMPTY,
-	GROUND,
-	WALL,
-	PLAYER,
-	COLLECTABLE,
-	EXIT,
-	INVALID,
-	VISITED
-}	t_obj_type;
+//typedef enum e_obj_type
+//{
+//	EMPTY,
+//	WALL,
+//	PLAYER,
+//	COLLECTABLE,
+//	EXIT,
+//	END,
+//	INVALID
+//}	t_obj_type;
 
 #endif

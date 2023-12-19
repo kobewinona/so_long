@@ -12,23 +12,18 @@
 
 #include "player.h"
 
-void	create_player(t_win *window)
+t_img	*create_player_sprite(t_gdata gdata)
 {
-	t_player	*player;
+	t_img	*sprite;
 
-	player = (t_player *)malloc(sizeof(t_player));
-	if (!player)
-		return ;
-	player->obj.obj_type = PLAYER;
-	player->collision = TRUE;
-	player->x = 0;
-	player->y = 0;
-	player->width = TILE_WIDTH;
-	player->height = TILE_HEIGHT;
-	player->color = create_color(100, 13, 59, 102);
-	player->sprite = create_image(
-			player->width, player->height, window);
-	draw_shape((t_shape){
-		0, 0, player->width, player->height, player->color
-	}, (t_xy){0, 0}, *(player->sprite));
+	sprite = create_image(SPRITE_WIDTH, SPRITE_HEIGHT, gdata.window->mlx_ptr);
+	if (!sprite)
+	{
+		log_error_message(gdata.error_log, UNKNOWN_ERR, ERROR);
+		return (NULL);
+	}
+	draw_shape((t_shape){0, 0, SPRITE_WIDTH,
+		SPRITE_HEIGHT, create_color(255, 81, 163, 163)},
+		(t_xy){0, 0}, *sprite);
+	return (sprite);
 }

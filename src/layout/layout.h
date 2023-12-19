@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   image.h                                            :+:      :+:    :+:   */
+/*   layout.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dklimkin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/01 14:55:49 by dklimkin          #+#    #+#             */
-/*   Updated: 2023/12/01 14:55:50 by dklimkin         ###   ########.fr       */
+/*   Created: 2023/12/11 14:46:24 by dklimkin          #+#    #+#             */
+/*   Updated: 2023/12/11 14:46:26 by dklimkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef IMAGE_H
-# define IMAGE_H
+#ifndef LAYOUT_H
+# define LAYOUT_H
 # include "so_long.h"
+# include "../buffer_handler/buffer_handler.h"
 
-typedef struct s_img
+typedef struct s_layout	t_layout;
+
+struct s_layout
 {
-	void	*img_ptr;
-	char	*addr;
+	t_obj	**buffer;
 	int		width;
 	int		height;
-	int		bpp;
-	int		endian;
-	int		line_len;
-}	t_img;
+	void	(*cleanup)(t_layout **);
+};
 
-t_img	*create_image(int width, int height, void *mlx_ptr);
+int		create_layout(
+			t_layout **layout, t_obj **game_buffer, t_list **error_log);
+int		init_layout_buffer(
+			t_obj **game_buffer, t_obj ***layout_buffer,
+			t_size size, t_list **error_log);
+void	cleanup_layout(t_layout **layout);
 
 #endif

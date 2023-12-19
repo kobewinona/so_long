@@ -32,13 +32,9 @@
 # define S 1
 # define D 2
 
-// grid size
-// TODO adjust TILE_WIDTH and TILE_HEIGHT to resolution
-// TODO rename tiles to something more generic
-# define WINDOW_WIDTH 768
-# define WINDOW_HEIGHT 585
-# define TILE_WIDTH 64
-# define TILE_HEIGHT 64
+// size
+# define SPRITE_WIDTH 64
+# define SPRITE_HEIGHT 64
 
 // colors
 # define RED "\033[31m"
@@ -51,6 +47,7 @@
 
 // error messages
 # define GAME_ERR "failed to start a game\n"
+# define GAME_ENV_ERR "failed to create game environment\n"
 # define UNKNOWN_ERR "unknown error occurred, please try again\n"
 
 // map errors
@@ -62,7 +59,7 @@
 // layout errors
 # define LAYOUT_ERR "failed to create a layout\n"
 # define TYPES_TABLE_ERR "failed to create a types table\n"
-# define BUFFER_ERR "failed to create a layout buffer\n"
+# define BUFFER_ERR "failed to create game buffer\n"
 # define INVALID_OBJ_ERR "invalid map characters found\n"
 
 // layout validation errors
@@ -73,5 +70,12 @@
 # define COLLECTABLES_COUNT_ERR "there must be at least 1 collectable\n"
 # define EXITS_COUNT_ERR "there must be 1 exit\n"
 # define SOLVABLE_ERR "map must be solvable\n"
+
+// window errors
+# define WINDOW_ERR "failed to create a window\n"
+
+// entities errors
+# define CREATE_BACKGROUND_ERR "failed to create background entity\n"
+# define CREATE_WALL_ERR "failed to create wall entity\n"
 
 #endif
