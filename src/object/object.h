@@ -23,7 +23,6 @@ struct s_obj
 	t_img		*sprite;
 	int			collision;
 	t_xy		position;
-	void		(*render)(t_obj, t_win *);
 };
 
 t_obj	create_object(t_gdata gdata, t_obj_type type, t_xy position);

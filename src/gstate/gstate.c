@@ -56,8 +56,7 @@ static int	create_game_env(const char *mapfile, t_gstate *g_state)
 	return (SUCCESS);
 }
 
-// TODO can pass buffer here, not g_state
-int	render_buffer(void *ptr)
+int	render_game(void *ptr)
 {
 	t_gstate	*g_state;
 	t_obj		obj;
@@ -70,9 +69,11 @@ int	render_buffer(void *ptr)
 		pos.x = 0;
 		while (g_state->buffer[pos.y][pos.x].type != END)
 		{
+			render_object((t_obj){EMPTY, g_state->sprites[0],
+				FALSE, pos}, g_state->window);
 			obj = g_state->buffer[pos.y][pos.x];
-			if (obj.sprite)
-				obj.render(obj, g_state->window);
+			if (obj.type != EMPTY && obj.sprite)
+				render_object(obj, g_state->window);
 			pos.x++;
 		}
 		pos.y++;
@@ -102,7 +103,7 @@ int	init_game(const char *mapfile, t_list **error_log)
 	add_sprites_to_buffer(g_state->buffer, g_state->sprites, (t_xy){0, 0});
 	add_sprites_to_buffer(
 		g_state->layout->buffer, g_state->sprites, (t_xy){0, 0});
-	mlx_loop_hook(g_state->window->mlx_ptr, &render_buffer, g_state);
+	mlx_loop_hook(g_state->window->mlx_ptr, &render_game, g_state);
 	mlx_loop(g_state->window->mlx_ptr);
 	cleanup_game((void **)&g_state);
 	return (SUCCESS);

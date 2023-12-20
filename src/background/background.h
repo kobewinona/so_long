@@ -15,19 +15,6 @@
 # include "so_long.h"
 # include "../draw_shape/draw_shape.h"
 
-typedef struct s_background	t_background;
-
-struct s_background
-{
-	int		collision;
-	t_size	size;
-	int		color;
-	t_img	*sprite;
-	void	(*render)(t_win *, t_xy, t_background *);
-	void	(*cleanup)(t_background **, void *);
-};
-
-int	create_background(
-		t_background **background, void *mlx_ptr, t_list **error_log);
+t_img	*create_background_sprite(void *mlx_ptr, t_list **error_log);
 
 #endif

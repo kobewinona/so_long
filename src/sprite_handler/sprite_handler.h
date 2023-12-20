@@ -15,8 +15,9 @@
 # include "so_long.h"
 # include "gdata.h"
 # include "../types_table/types_table.h"
-# include "../player/player.h"
+# include "../background/background.h"
 # include "../wall/wall.h"
+# include "../player/player.h"
 # include "../collectable/collectable.h"
 # include "../exit/exit.h"
 

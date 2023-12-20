@@ -60,8 +60,7 @@ t_img	*create_wall_sprite(void *mlx_ptr, t_list **error_log)
 		log_error_message(error_log, UNKNOWN_ERR, ERROR);
 		return (NULL);
 	}
-	draw_shape((t_shape){0, 0, SPRITE_WIDTH,
-		SPRITE_HEIGHT, create_color(255, 221, 115, 115)},
-		(t_xy){0, 0}, *sprite);
+	draw_shape((t_shape){0, 0, SPRITE_WIDTH, SPRITE_HEIGHT,
+		create_color(255, 204, 90, 113)}, (t_xy){0, 0}, *sprite);
 	return (sprite);
 }

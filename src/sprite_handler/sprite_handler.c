@@ -50,6 +50,7 @@ int	create_sprites(t_img ***sprites, t_gdata gdata)
 	(*sprites) = (t_img **)ft_calloc((types_count + 1), sizeof(t_img *));
 	if (!(*sprites))
 		return (log_error_message(gdata.error_log, UNKNOWN_ERR, ERROR));
+	(*sprites)[0] = create_background_sprite(gdata.window->mlx_ptr, gdata.error_log);
 	i = 1;
 	while (i < types_count)
 	{

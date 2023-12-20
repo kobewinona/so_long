@@ -34,6 +34,5 @@ t_obj	create_object(t_gdata gdata, t_obj_type type, t_xy position)
 		object.sprite = NULL;
 	object.collision = type == WALL;
 	object.position = position;
-	object.render = &render_object;
 	return (object);
 }
