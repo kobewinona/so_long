@@ -14,6 +14,8 @@
 
 void	render_object(t_obj obj, t_win *window)
 {
+	if (obj.type == EMPTY)
+		ft_printf("obj type %d, y %d, x %d\n", obj.type, obj.position.y, obj.position.x);
 	if (window->mlx_ptr && window->win_ptr && obj.sprite->img_ptr)
 	{
 		mlx_put_image_to_window(

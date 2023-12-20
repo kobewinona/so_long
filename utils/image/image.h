@@ -26,5 +26,6 @@ typedef struct s_img
 }	t_img;
 
 t_img	*create_image(int width, int height, void *mlx_ptr);
+t_img	*create_file_image(char *path, void *mlx_ptr);
 
 #endif

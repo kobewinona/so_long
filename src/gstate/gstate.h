@@ -25,6 +25,8 @@ typedef struct s_gstate
 	t_obj_type		*types_table;
 	t_obj			**buffer;
 	t_img			**sprites;
+	t_xy			p_pos;
+	int				coll_count;
 }	t_gstate;
 
 int		init_game(const char *mapfile, t_list **error_log);

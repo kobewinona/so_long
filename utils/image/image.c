@@ -12,14 +12,33 @@
 
 #include "image.h"
 
+t_img	*create_file_image(char *path, void *mlx_ptr)
+{
+	t_img	*sprite;
+
+	sprite = (t_img *)malloc(sizeof(t_img));
+	if (!sprite)
+		return (NULL);
+	sprite->img_ptr = mlx_xpm_file_to_image(
+			mlx_ptr, path, &sprite->width, &sprite->height);
+	if (!sprite->img_ptr)
+		return (NULL);
+	sprite->addr = mlx_get_data_addr(
+			sprite->img_ptr, &(sprite->bpp),
+			&(sprite->line_len), &(sprite->endian));
+	return (sprite);
+}
+
 t_img	*create_image(int width, int height, void *mlx_ptr)
 {
 	t_img	*image;
 
 	image = (t_img *)malloc(sizeof(t_img));
 	if (!image)
-		return ((void *)0);
+		return (NULL);
 	image->img_ptr = mlx_new_image(mlx_ptr, width, height);
+	if (!image->img_ptr)
+		return (NULL);
 	image->addr = mlx_get_data_addr(
 			image->img_ptr, &image->bpp,
 			&image->line_len, &image->endian);

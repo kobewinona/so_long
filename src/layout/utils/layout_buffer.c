@@ -20,10 +20,8 @@ static void	fill_layout_buffer(
 	i = 0;
 	while (game_buffer[i].type != END)
 	{
-		if (game_buffer[i].type == WALL)
-			(*layout_buffer)[i].type = WALL;
-		else
-			(*layout_buffer)[i].type = EMPTY;
+		if (game_buffer[i].type != PLAYER && game_buffer[i].type != COLLECTABLE)
+			(*layout_buffer)[i] = game_buffer[i];
 		i++;
 	}
 	(*layout_buffer)[i].type = END;

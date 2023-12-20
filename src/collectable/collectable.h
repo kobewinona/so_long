@@ -13,8 +13,10 @@
 #ifndef COLLECTABLE_H
 # define COLLECTABLE_H
 # include "so_long.h"
+# include "../object/object.h"
 # include "../draw_shape/draw_shape.h"
 
 t_img	*create_collectable_sprite(void *mlx_ptr, t_list **error_log);
+int		count_collectables(t_obj **buffer);
 
 #endif

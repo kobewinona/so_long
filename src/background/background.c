@@ -23,6 +23,6 @@ t_img	*create_background_sprite(void *mlx_ptr, t_list **error_log)
 		return (NULL);
 	}
 	draw_shape((t_shape){0, 0, SPRITE_WIDTH, SPRITE_HEIGHT,
-		create_color(255, 52, 52, 74)}, (t_xy){0, 0}, *sprite);
+		create_color(255, 40, 40, 40)}, (t_xy){0, 0}, *sprite);
 	return (sprite);
 }

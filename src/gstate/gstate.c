@@ -52,28 +52,53 @@ static int	create_game_env(const char *mapfile, t_gstate *g_state)
 	if (create_layout(&g_state->layout,
 			g_state->buffer, g_state->error_log) != SUCCESS)
 		return (log_error_message(g_state->error_log, LAYOUT_ERR, ERROR));
+	g_state->coll_count = count_collectables(g_state->buffer);
+	g_state->p_pos = find_player_position(g_state->buffer);
 	print_buffer(g_state->layout->buffer, (t_xy){0, 0});
 	return (SUCCESS);
 }
 
-int	render_game(void *ptr)
+int	read_keys(int key_pressed, void **ptr)
 {
-	t_gstate	*g_state;
+	t_gstate	**g_state;
+
+	g_state = (t_gstate **)ptr;
+	if (!(*g_state))
+		return (ERROR);
+	if (key_pressed == ESC)
+	{
+		cleanup_game(ptr);
+		exit(EXIT_SUCCESS);
+	}
+	if (key_pressed >= A && key_pressed <= D || key_pressed == W)
+		(*g_state)->p_pos = move_player(
+				&(*g_state)->buffer, (*g_state)->layout->buffer,
+				(*g_state)->p_pos, key_pressed);
+	return (SUCCESS);
+}
+
+int	render_game(void **ptr)
+{
+	t_gstate	**g_state;
 	t_obj		obj;
 	t_xy		pos;
 
-	g_state = (t_gstate *)ptr;
+	g_state = (t_gstate **)ptr;
+	if (!g_state)
+		return (ERROR);
 	pos.y = 0;
-	while (g_state->buffer[pos.y])
+	while ((*g_state)->buffer[pos.y])
 	{
 		pos.x = 0;
-		while (g_state->buffer[pos.y][pos.x].type != END)
+		while ((*g_state)->buffer[pos.y][pos.x].type != END)
 		{
-			render_object((t_obj){EMPTY, g_state->sprites[0],
-				FALSE, pos}, g_state->window);
-			obj = g_state->buffer[pos.y][pos.x];
-			if (obj.type != EMPTY && obj.sprite)
-				render_object(obj, g_state->window);
+			render_object((t_obj){EMPTY, (*g_state)->sprites[0],
+				FALSE, pos}, (*g_state)->window);
+			obj = (*g_state)->buffer[pos.y][pos.x];
+			if (obj.sprite)
+				render_object(obj, (*g_state)->window);
+//			if (obj.type == PLAYER)
+//				ft_printf("obj.pos y %d pos x %d\n", obj.position.y, obj.position.x);
 			pos.x++;
 		}
 		pos.y++;
@@ -103,7 +128,8 @@ int	init_game(const char *mapfile, t_list **error_log)
 	add_sprites_to_buffer(g_state->buffer, g_state->sprites, (t_xy){0, 0});
 	add_sprites_to_buffer(
 		g_state->layout->buffer, g_state->sprites, (t_xy){0, 0});
-	mlx_loop_hook(g_state->window->mlx_ptr, &render_game, g_state);
+	mlx_key_hook(g_state->window->win_ptr, &read_keys, &g_state);
+	mlx_loop_hook(g_state->window->mlx_ptr, &render_game, &g_state);
 	mlx_loop(g_state->window->mlx_ptr);
 	cleanup_game((void **)&g_state);
 	return (SUCCESS);
