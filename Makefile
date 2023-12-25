@@ -5,7 +5,7 @@ ASAN_NAME		= so_long_asan
 
 CC				= gcc
 # CFLAGS			= -Wall -Wextra -Werror -MMD
-CFLAGS			= -MMD
+CFLAGS			= -g -MMD
 ASAN_FLAGS		= -fsanitize=address
 RM				= rm -rf
 INCLUDES		= ./includes

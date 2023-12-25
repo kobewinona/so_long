@@ -13,7 +13,7 @@
 #include "../layout.h"
 
 static void	fill_layout_buffer(
-		const t_obj *game_buffer, t_obj **layout_buffer)
+		const t_obj *game_buffer, t_obj **layout_buffer, int y)
 {
 	int		i;
 
@@ -22,6 +22,8 @@ static void	fill_layout_buffer(
 	{
 		if (game_buffer[i].type != PLAYER && game_buffer[i].type != COLLECTABLE)
 			(*layout_buffer)[i] = game_buffer[i];
+		else
+			(*layout_buffer)[i] = (t_obj){EMPTY, NULL, FALSE};
 		i++;
 	}
 	(*layout_buffer)[i].type = END;
@@ -44,7 +46,7 @@ int	init_layout_buffer(
 				(size.width + 1), sizeof(t_obj));
 		if (!(*layout_buffer)[i])
 			return (log_error_message(error_log, UNKNOWN_ERR, ERROR));
-		fill_layout_buffer(game_buffer[i], &(*layout_buffer)[i]);
+		fill_layout_buffer(game_buffer[i], &(*layout_buffer)[i], i);
 		i++;
 	}
 	return (SUCCESS);

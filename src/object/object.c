@@ -12,20 +12,18 @@
 
 #include "object.h"
 
-void	render_object(t_obj obj, t_win *window)
+void	render_object(t_obj obj, t_xy pos, t_win *window)
 {
-	if (obj.type == EMPTY)
-		ft_printf("obj type %d, y %d, x %d\n", obj.type, obj.position.y, obj.position.x);
 	if (window->mlx_ptr && window->win_ptr && obj.sprite->img_ptr)
 	{
 		mlx_put_image_to_window(
 			window->mlx_ptr, window->win_ptr,
 			obj.sprite->img_ptr,
-			(obj.position.x * SPRITE_WIDTH), (obj.position.y * SPRITE_HEIGHT));
+			(pos.x * SPRITE_WIDTH), (pos.y * SPRITE_HEIGHT));
 	}
 }
 
-t_obj	create_object(t_gdata gdata, t_obj_type type, t_xy position)
+t_obj	create_object(t_gdata gdata, t_obj_type type, t_img *sprite)
 {
 	t_obj	object;
 
@@ -35,6 +33,5 @@ t_obj	create_object(t_gdata gdata, t_obj_type type, t_xy position)
 	else
 		object.sprite = NULL;
 	object.collision = type == WALL;
-	object.position = position;
 	return (object);
 }

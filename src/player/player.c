@@ -12,7 +12,7 @@
 
 #include "player.h"
 
-t_xy	find_player_position(t_obj **buffer)
+void	find_player_position(t_obj **buffer, t_xy *p_pos)
 {
 	t_xy	pos;
 
@@ -23,33 +23,28 @@ t_xy	find_player_position(t_obj **buffer)
 		while (buffer[pos.y][pos.x].type != EMPTY)
 		{
 			if (buffer[pos.y][pos.x].type == PLAYER)
-				return (pos);
+			{
+				*p_pos = pos;
+				return ;
+			}
 			pos.x++;
 		}
 		pos.y++;
 	}
-	return ((t_xy){-1, -1});
 }
 
-t_xy	move_player(t_obj ***buffer, t_obj **layout_buffer, t_xy pos, int key_pressed)
+void	move_player(
+		t_obj **buffer, t_obj **layout_buffer, t_xy *p_pos, int key_pressed)
 {
-//	t_obj	temp;
-//
-//	temp = (*buffer)[pos.y][pos.x];
-//	(*buffer)[pos.y][pos.x] = layout_buffer[pos.y][pos.x];
-	if (key_pressed == W)
-	{
-//		temp.position = (t_xy){pos.x, pos.y - 1};
-		(*buffer)[pos.y - 1][pos.x] = (*buffer)[pos.y][pos.x];
-		(*buffer)[pos.y][pos.x] = layout_buffer[pos.y][pos.x];
-	}
-	if (key_pressed == D)
-	{
-//		temp.position = (t_xy){pos.x + 1, pos.y};
-		(*buffer)[pos.y][pos.x + 1] = (*buffer)[pos.y][pos.x];
-		(*buffer)[pos.y][pos.x] = (t_obj){EMPTY, NULL, FALSE, pos.x, pos.y};
-	}
-	return (pos);
+	int	dir_y;
+	int	dir_x;
+
+	dir_y = (key_pressed == S) - (key_pressed == W);
+	dir_x = (key_pressed == D) - (key_pressed == A);
+	buffer[p_pos->y + dir_y][p_pos->x + dir_x] = buffer[p_pos->y][p_pos->x];
+	buffer[p_pos->y][p_pos->x] = layout_buffer[p_pos->y][p_pos->x];
+	p_pos->y = (p_pos->y + dir_y);
+	p_pos->x = (p_pos->x + dir_x);
 }
 
 t_img	*create_player_sprite(void *mlx_ptr, t_list **error_log)

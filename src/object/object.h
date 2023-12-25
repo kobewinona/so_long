@@ -22,10 +22,9 @@ struct s_obj
 	t_obj_type	type;
 	t_img		*sprite;
 	int			collision;
-	t_xy		position;
 };
 
-t_obj	create_object(t_gdata gdata, t_obj_type type, t_xy position);
-void	render_object(t_obj obj, t_win *window);
+t_obj	create_object(t_gdata gdata, t_obj_type type, t_img *sprite);
+void	render_object(t_obj obj, t_xy pos, t_win *window);
 
 #endif

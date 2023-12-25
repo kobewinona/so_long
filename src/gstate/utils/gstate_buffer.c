@@ -56,7 +56,7 @@ static int	fill_layout_buffer_row(
 	{
 		type = match_type(gdata.types_table, line[x]);
 		if (is_type_valid(gdata.types_table, type))
-			buffer[x] = create_object(gdata, type, (t_xy){x, y});
+			buffer[x] = create_object(gdata, type, NULL);
 		else
 			return (log_error_message(gdata.error_log, INVALID_OBJ_ERR, ERROR));
 		x++;

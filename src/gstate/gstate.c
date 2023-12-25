@@ -14,56 +14,56 @@
 
 void	cleanup_game(void **ptr)
 {
-	t_gstate	*g_state;
+	t_gstate	*gstate;
 
-	g_state = (t_gstate *)*ptr;
-	if (g_state)
+	gstate = (t_gstate *)*ptr;
+	if (gstate)
 	{
-		if (g_state->types_table)
-			free(g_state->types_table);
-		if (g_state->layout && g_state->layout->buffer)
+		if (gstate->types_table)
+			free(gstate->types_table);
+		if (gstate->layout && gstate->layout->buffer)
 		{
-			cleanup_buffer(g_state->layout->buffer);
-			free(g_state->layout);
+			cleanup_buffer(gstate->layout->buffer);
+			free(gstate->layout);
 		}
-		if (g_state->buffer)
-			cleanup_buffer(g_state->buffer);
-		if (g_state->sprites)
-			cleanup_sprites(g_state->window->mlx_ptr,
-				g_state->types_table, &g_state->sprites);
-		free(g_state);
+		if (gstate->buffer)
+			cleanup_buffer(gstate->buffer);
+		if (gstate->sprites)
+			cleanup_sprites(gstate->window->mlx_ptr,
+				gstate->types_table, &gstate->sprites);
+		free(gstate);
 	}
 }
 
-static int	create_game_env(const char *mapfile, t_gstate *g_state)
+static int	create_game_env(const char *mapfile, t_gstate *gstate)
 {
-	g_state->types_table = NULL;
-	g_state->buffer = NULL;
-	g_state->layout = NULL;
+	gstate->types_table = NULL;
+	gstate->buffer = NULL;
+	gstate->layout = NULL;
 	if (create_types_table(
-			&g_state->types_table, g_state->error_log) != SUCCESS)
-		return (log_error_message(g_state->error_log, TYPES_TABLE_ERR, ERROR));
-	if (init_game_buffer(mapfile, &g_state->buffer, (t_gdata){g_state->window,
-			g_state->error_log, g_state->types_table, NULL}) != SUCCESS)
-		return (log_error_message(g_state->error_log, BUFFER_ERR, ERROR));
-	print_buffer(g_state->buffer, (t_xy){0, 0});
-	if (is_map_valid(g_state->buffer, g_state->error_log) != TRUE)
-		return (log_error_message(g_state->error_log, VALIDATION_ERR, ERROR));
-	if (create_layout(&g_state->layout,
-			g_state->buffer, g_state->error_log) != SUCCESS)
-		return (log_error_message(g_state->error_log, LAYOUT_ERR, ERROR));
-	g_state->coll_count = count_collectables(g_state->buffer);
-	g_state->p_pos = find_player_position(g_state->buffer);
-	print_buffer(g_state->layout->buffer, (t_xy){0, 0});
+			&gstate->types_table, gstate->error_log) != SUCCESS)
+		return (log_error_message(gstate->error_log, TYPES_TABLE_ERR, ERROR));
+	if (init_game_buffer(mapfile, &gstate->buffer, (t_gdata){gstate->window,
+		gstate->error_log, gstate->types_table, NULL}) != SUCCESS)
+		return (log_error_message(gstate->error_log, BUFFER_ERR, ERROR));
+	print_buffer(gstate->buffer, (t_xy){0, 0});
+	if (is_map_valid(gstate->buffer, gstate->error_log) != TRUE)
+		return (log_error_message(gstate->error_log, VALIDATION_ERR, ERROR));
+	if (create_layout(&gstate->layout,
+			gstate->buffer, gstate->error_log) != SUCCESS)
+		return (log_error_message(gstate->error_log, LAYOUT_ERR, ERROR));
+	gstate->coll_count = count_collectables(gstate->buffer);
+	find_player_position(gstate->buffer, &gstate->p_pos);
+	print_buffer(gstate->layout->buffer, (t_xy){0, 0});
 	return (SUCCESS);
 }
 
 int	read_keys(int key_pressed, void **ptr)
 {
-	t_gstate	**g_state;
+	t_gstate	**gstate;
 
-	g_state = (t_gstate **)ptr;
-	if (!(*g_state))
+	gstate = (t_gstate **)ptr;
+	if (!(*gstate))
 		return (ERROR);
 	if (key_pressed == ESC)
 	{
@@ -71,34 +71,29 @@ int	read_keys(int key_pressed, void **ptr)
 		exit(EXIT_SUCCESS);
 	}
 	if (key_pressed >= A && key_pressed <= D || key_pressed == W)
-		(*g_state)->p_pos = move_player(
-				&(*g_state)->buffer, (*g_state)->layout->buffer,
-				(*g_state)->p_pos, key_pressed);
+	{
+		move_player((*gstate)->buffer, (*gstate)->layout->buffer,
+			&(*gstate)->p_pos, key_pressed);
+	}
 	return (SUCCESS);
 }
 
-int	render_game(void **ptr)
+int	render_layout(t_gstate	*gstate)
 {
-	t_gstate	**g_state;
-	t_obj		obj;
 	t_xy		pos;
+	t_obj		ground;
 
-	g_state = (t_gstate **)ptr;
-	if (!g_state)
-		return (ERROR);
+	ground = (t_obj){EMPTY, gstate->sprites[0], FALSE};
 	pos.y = 0;
-	while ((*g_state)->buffer[pos.y])
+	while (gstate->buffer[pos.y])
 	{
 		pos.x = 0;
-		while ((*g_state)->buffer[pos.y][pos.x].type != END)
+		while (gstate->buffer[pos.y][pos.x].type != END)
 		{
-			render_object((t_obj){EMPTY, (*g_state)->sprites[0],
-				FALSE, pos}, (*g_state)->window);
-			obj = (*g_state)->buffer[pos.y][pos.x];
-			if (obj.sprite)
-				render_object(obj, (*g_state)->window);
-//			if (obj.type == PLAYER)
-//				ft_printf("obj.pos y %d pos x %d\n", obj.position.y, obj.position.x);
+			render_object(ground, (t_xy){pos.x, pos.y}, gstate->window);
+			render_object(
+				gstate->buffer[pos.y][pos.x],
+				(t_xy){pos.x, pos.y}, gstate->window);
 			pos.x++;
 		}
 		pos.y++;
@@ -106,31 +101,62 @@ int	render_game(void **ptr)
 	return (SUCCESS);
 }
 
+int	render_player(t_gstate *gstate)
+{
+	t_obj		obj;
+	t_xy		pos;
+
+	pos.y = 0;
+	while (gstate->buffer[pos.y])
+	{
+		pos.x = 0;
+		while (gstate->buffer[pos.y][pos.x].type != END)
+		{
+			obj = gstate->buffer[pos.y][pos.x];
+			if (obj.sprite && obj.type == PLAYER)
+				render_object(obj, (t_xy){pos.x, pos.y}, gstate->window);
+			pos.x++;
+		}
+		pos.y++;
+	}
+	return (SUCCESS);
+}
+
+int	render_game(t_gstate *gstate)
+{
+	t_obj		obj;
+	t_xy		pos;
+
+	render_layout(gstate);
+	render_player(gstate);
+	return (SUCCESS);
+}
+
 int	init_game(const char *mapfile, t_list **error_log)
 {
-	t_gstate	*g_state;
+	t_gstate	*gstate;
 
-	g_state = (t_gstate *)malloc(sizeof(t_gstate));
-	if (!g_state)
+	gstate = (t_gstate *)malloc(sizeof(t_gstate));
+	if (!gstate)
 		return (log_error_message(error_log, UNKNOWN_ERR, ERROR));
-	g_state->window = NULL;
-	g_state->error_log = error_log;
-	handle_error(create_game_env(mapfile, g_state), &g_state, (t_error){
-		&cleanup_game, GAME_ENV_ERR, g_state->error_log, TRUE});
-	g_state->sprites = NULL;
+	gstate->window = NULL;
+	gstate->error_log = error_log;
+	handle_error(create_game_env(mapfile, gstate), &gstate, (t_error){
+		&cleanup_game, GAME_ENV_ERR, gstate->error_log, TRUE});
+	gstate->sprites = NULL;
 	handle_error(create_window(
-			g_state->layout->width, g_state->layout->height,
-			&g_state->window, g_state->error_log), &g_state, (t_error){
-		&cleanup_game, GAME_ERR, g_state->error_log, TRUE});
-	handle_error(create_sprites(&g_state->sprites, (t_gdata){
-			g_state->window, g_state->error_log, g_state->types_table, NULL}),
-		&g_state, (t_error){&cleanup_game, GAME_ERR, g_state->error_log});
-	add_sprites_to_buffer(g_state->buffer, g_state->sprites, (t_xy){0, 0});
+			gstate->layout->width, gstate->layout->height,
+			&gstate->window, gstate->error_log), &gstate, (t_error){
+		&cleanup_game, GAME_ERR, gstate->error_log, TRUE});
+	handle_error(create_sprites(&gstate->sprites, (t_gdata){
+			gstate->window, gstate->error_log, gstate->types_table, NULL}),
+		&gstate, (t_error){&cleanup_game, GAME_ERR, gstate->error_log});
+	add_sprites_to_buffer(gstate->buffer, gstate->sprites, (t_xy){0, 0});
 	add_sprites_to_buffer(
-		g_state->layout->buffer, g_state->sprites, (t_xy){0, 0});
-	mlx_key_hook(g_state->window->win_ptr, &read_keys, &g_state);
-	mlx_loop_hook(g_state->window->mlx_ptr, &render_game, &g_state);
-	mlx_loop(g_state->window->mlx_ptr);
-	cleanup_game((void **)&g_state);
+		gstate->layout->buffer, gstate->sprites, (t_xy){0, 0});
+	mlx_loop_hook(gstate->window->mlx_ptr, &render_game, gstate);
+	mlx_key_hook(gstate->window->win_ptr, &read_keys, &gstate);
+	mlx_loop(gstate->window->mlx_ptr);
+	cleanup_game((void **)&gstate);
 	return (SUCCESS);
 }

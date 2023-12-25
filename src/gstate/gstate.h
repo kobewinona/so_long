@@ -29,6 +29,9 @@ typedef struct s_gstate
 	int				coll_count;
 }	t_gstate;
 
+int	render_game(t_gstate *gstate);
+int	render_layout(t_gstate	*gstate);
+int	render_player(t_gstate *gstate);
 int		init_game(const char *mapfile, t_list **error_log);
 int		init_game_buffer(const char *mapfile, t_obj ***buffer, t_gdata gdata);
 void	cleanup_game(void **ptr);
