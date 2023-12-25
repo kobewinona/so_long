@@ -33,7 +33,7 @@ static int	cleanup_on_exit(t_ff **ff, int return_value)
 	return (return_value);
 }
 
-static bool	**init_ff_buffer(t_obj **buffer, t_xy pos, t_size size)
+static bool	**init_ff_buffer(t_obj_type **buffer, t_xy pos, t_size size)
 {
 	bool	**ff_buffer;
 
@@ -48,7 +48,7 @@ static bool	**init_ff_buffer(t_obj **buffer, t_xy pos, t_size size)
 		pos.x = 0;
 		while (pos.x < size.width)
 		{
-			ff_buffer[pos.y][pos.x] = buffer[pos.y][pos.x].type == WALL;
+			ff_buffer[pos.y][pos.x] = buffer[pos.y][pos.x] == WALL;
 			pos.x++;
 		}
 		pos.y++;
@@ -56,14 +56,14 @@ static bool	**init_ff_buffer(t_obj **buffer, t_xy pos, t_size size)
 	return (ff_buffer);
 }
 
-static void	find_player_position(t_ff **ff, t_obj **buffer)
+static void	find_player_position(t_ff **ff, t_obj_type **buffer)
 {
 	while (buffer[(*ff)->players_y])
 	{
 		(*ff)->players_x = 0;
-		while (buffer[(*ff)->players_y][(*ff)->players_x].type != END)
+		while (buffer[(*ff)->players_y][(*ff)->players_x] != END)
 		{
-			if (buffer[(*ff)->players_y][(*ff)->players_x].type == PLAYER)
+			if (buffer[(*ff)->players_y][(*ff)->players_x] == PLAYER)
 				return ;
 			(*ff)->players_x++;
 		}
@@ -71,7 +71,7 @@ static void	find_player_position(t_ff **ff, t_obj **buffer)
 	}
 }
 
-static void	floodandfill(t_obj **buffer, t_ff **ff, t_xy pos, t_size size)
+static void	floodandfill(t_obj_type **buffer, t_ff **ff, t_xy pos, t_size size)
 {
 	if (pos.x < 0 || pos.x >= size.width
 		|| pos.y < 0 || pos.y >= size.height)
@@ -79,9 +79,9 @@ static void	floodandfill(t_obj **buffer, t_ff **ff, t_xy pos, t_size size)
 	if ((*ff)->buffer[pos.y][pos.x] == TRUE)
 		return ;
 	(*ff)->buffer[pos.y][pos.x] = TRUE;
-	if (buffer[pos.y][pos.x].type == COLLECTABLE)
+	if (buffer[pos.y][pos.x] == COLLECTABLE)
 		(*ff)->collectables_count--;
-	else if (buffer[pos.y][pos.x].type == EXIT)
+	else if (buffer[pos.y][pos.x] == EXIT)
 		(*ff)->is_exit_found = TRUE;
 	floodandfill(buffer, ff, (t_xy){
 		(pos.x + 1), pos.y}, (t_size){size.width, size.height});
@@ -93,7 +93,7 @@ static void	floodandfill(t_obj **buffer, t_ff **ff, t_xy pos, t_size size)
 		pos.x, (pos.y - 1)}, (t_size){size.width, size.height});
 }
 
-int	is_map_solvable(t_obj **buffer, t_val_info *val_info, t_list **error_log)
+int	is_map_solvable(t_obj_type **buffer, t_vdata vdata, t_list **error_log)
 {
 	t_ff	*ff;
 
@@ -101,14 +101,14 @@ int	is_map_solvable(t_obj **buffer, t_val_info *val_info, t_list **error_log)
 	if (!ff)
 		return (log_error_message(error_log, UNKNOWN_ERR, ERROR));
 	*ff = (t_ff){init_ff_buffer(buffer, (t_xy){
-			0, 0}, (t_size){val_info->width, val_info->height}),
-		0, 0, val_info->collectables_count, FALSE};
+			0, 0}, (t_size){vdata.width, vdata.height}),
+		0, 0, vdata.collectables_count, FALSE};
 	if (!ff->buffer)
 		return (cleanup_on_exit(
 				&ff, log_error_message(error_log, UNKNOWN_ERR, ERROR)));
 	find_player_position(&ff, buffer);
 	floodandfill(buffer, &ff, (t_xy){ff->players_x, ff->players_y},
-		(t_size){val_info->width, val_info->height});
+		(t_size){vdata.width, vdata.height});
 	return (cleanup_on_exit(
 			&ff, ff->collectables_count == 0 && ff->is_exit_found));
 }

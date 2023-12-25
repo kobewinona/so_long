@@ -74,6 +74,7 @@
 # define WINDOW_ERR "failed to create a window\n"
 
 // sprite errors
+# define SPRITES_ERR "failed to create sprites\n"
 # define SPRITE_ERR "failed to create a sprite\n"
 
 #endif

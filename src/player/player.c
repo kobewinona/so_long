@@ -12,37 +12,34 @@
 
 #include "player.h"
 
-void	find_player_position(t_obj **buffer, t_xy *p_pos)
+void	define_player_position(t_obj_type **buffer, t_xy *p_pos)
 {
-	t_xy	pos;
-
-	pos = (t_xy){0, 0};
-	while (buffer[pos.y])
+	*p_pos = (t_xy){0, 0};
+	while (buffer[p_pos->y])
 	{
-		pos.x = 0;
-		while (buffer[pos.y][pos.x].type != EMPTY)
+		p_pos->x = 0;
+		while (buffer[p_pos->y][p_pos->x] != EMPTY)
 		{
-			if (buffer[pos.y][pos.x].type == PLAYER)
-			{
-				*p_pos = pos;
+			if (buffer[p_pos->y][p_pos->x] == PLAYER)
 				return ;
-			}
-			pos.x++;
+			p_pos->x++;
 		}
-		pos.y++;
+		p_pos->y++;
 	}
 }
 
 void	move_player(
-		t_obj **buffer, t_obj **layout_buffer, t_xy *p_pos, int key_pressed)
+			t_obj **objects, t_obj **layout, t_xy *p_pos, int key_pressed)
 {
-	int	dir_y;
-	int	dir_x;
+	int		dir_y;
+	int		dir_x;
 
 	dir_y = (key_pressed == S) - (key_pressed == W);
 	dir_x = (key_pressed == D) - (key_pressed == A);
-	buffer[p_pos->y + dir_y][p_pos->x + dir_x] = buffer[p_pos->y][p_pos->x];
-	buffer[p_pos->y][p_pos->x] = layout_buffer[p_pos->y][p_pos->x];
+	if (layout[p_pos->y + dir_y][p_pos->x + dir_x].type == WALL)
+		return ;
+	objects[p_pos->y + dir_y][p_pos->x + dir_x] = objects[p_pos->y][p_pos->x];
+	objects[p_pos->y][p_pos->x] = layout[p_pos->y][p_pos->x];
 	p_pos->y = (p_pos->y + dir_y);
 	p_pos->x = (p_pos->x + dir_x);
 }

@@ -17,8 +17,8 @@
 # include "../draw_shape/draw_shape.h"
 
 t_img	*create_player_sprite(void *mlx_ptr, t_list **error_log);
-void	find_player_position(t_obj **buffer, t_xy *p_pos);
+void	define_player_position(t_obj_type **buffer, t_xy *p_pos);
 void	move_player(
-			t_obj **buffer, t_obj **layout_buffer, t_xy *p_pos, int key_pressed);
+			t_obj **objects, t_obj **layout, t_xy *p_pos, int key_pressed);
 
 #endif

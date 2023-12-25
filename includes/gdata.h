@@ -17,6 +17,7 @@
 typedef struct s_gdata
 {
 	t_win		*window;
+	t_size		size;
 	t_list		**error_log;
 	t_obj_type	*types_table;
 	t_img		**sprites;

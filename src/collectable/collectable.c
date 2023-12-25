@@ -12,25 +12,31 @@
 
 #include "collectable.h"
 
-int	count_collectables(t_obj **buffer)
+void	update_collectables_count(
+			t_obj_type **type_buffer, t_obj **layout_buffer,
+			t_xy p_pos, int *collectables_count)
 {
-	int		count;
+	if (type_buffer[p_pos.y][p_pos.x] == COLLECTABLE)
+		(*collectables_count)--;
+}
+
+void	count_collectables(t_obj_type **buffer, int *collectables_count)
+{
 	t_xy	pos;
 
-	count = 0;
 	pos = (t_xy){0, 0};
+	(*collectables_count) = 0;
 	while (buffer[pos.y])
 	{
 		pos.x = 0;
-		while (buffer[pos.y][pos.x].type != END)
+		while (buffer[pos.y][pos.x] != END)
 		{
-			if (buffer[pos.y][pos.x].type == COLLECTABLE)
-				count++;
+			if (buffer[pos.y][pos.x] == COLLECTABLE)
+				(*collectables_count)++;
 			pos.x++;
 		}
 		pos.y++;
 	}
-	return (count);
 }
 
 t_img	*create_collectable_sprite(void *mlx_ptr, t_list **error_log)

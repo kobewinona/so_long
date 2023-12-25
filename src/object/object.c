@@ -14,7 +14,7 @@
 
 void	render_object(t_obj obj, t_xy pos, t_win *window)
 {
-	if (window->mlx_ptr && window->win_ptr && obj.sprite->img_ptr)
+	if (window->mlx_ptr && window->win_ptr && obj.sprite)
 	{
 		mlx_put_image_to_window(
 			window->mlx_ptr, window->win_ptr,
@@ -23,15 +23,12 @@ void	render_object(t_obj obj, t_xy pos, t_win *window)
 	}
 }
 
-t_obj	create_object(t_gdata gdata, t_obj_type type, t_img *sprite)
+t_obj	create_object(t_obj_type type, t_img *sprite)
 {
 	t_obj	object;
 
 	object.type = type;
-	if (gdata.sprites)
-		object.sprite = gdata.sprites[type];
-	else
-		object.sprite = NULL;
+	object.sprite = sprite;
 	object.collision = type == WALL;
 	return (object);
 }

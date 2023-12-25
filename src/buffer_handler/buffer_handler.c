@@ -12,7 +12,7 @@
 
 #include "buffer_handler.h"
 
-void	cleanup_buffer(t_obj **buffer)
+void	cleanup_objs_buffer(t_obj **buffer)
 {
 	int	y;
 
@@ -30,21 +30,39 @@ void	cleanup_buffer(t_obj **buffer)
 	}
 }
 
-void	add_sprites_to_buffer(t_obj **buffer, t_img **sprites, t_xy pos)
+void	cleanup_types_buffer(t_obj_type **buffer)
 {
-	while (buffer[pos.y])
+	int	y;
+
+	if (buffer)
 	{
-		pos.x = 0;
-		while (buffer[pos.y][pos.x].type != END)
+		y = 0;
+		while (buffer[y])
 		{
-			buffer[pos.y][pos.x].sprite = sprites[buffer[pos.y][pos.x].type];
-			pos.x++;
+			free(buffer[y]);
+			buffer[y] = NULL;
+			y++;
 		}
-		pos.y++;
+		free(buffer);
+		buffer = NULL;
 	}
 }
 
-void	print_buffer(t_obj **buffer, t_xy pos)
+static void	print_buffer_value(t_obj_type type)
+{
+	if (type == EXIT)
+		ft_printf("%s%s", DARK_PURPLE, "⍈");
+	if (type == EMPTY)
+		ft_printf("%s%s", GREY, "▢");
+	if (type == PLAYER)
+		ft_printf("%s%s", DARK_BLUE, "◉");
+	if (type == COLLECTABLE)
+		ft_printf("%s%s", DARK_GREEN, "◎");
+	if (type == WALL)
+		ft_printf("%s%s", DEFAULT, "▣");
+}
+
+void	print_objects_buffer(t_obj **buffer, t_xy pos)
 {
 	if (*buffer)
 	{
@@ -53,18 +71,29 @@ void	print_buffer(t_obj **buffer, t_xy pos)
 			pos.x = 0;
 			while (buffer[pos.y][pos.x].type != END)
 			{
-				if (buffer[pos.y][pos.x].type == EXIT)
-					ft_printf("%s%s", DARK_PURPLE, "⍈");
-				if (buffer[pos.y][pos.x].type == EMPTY)
-					ft_printf("%s%s", GREY, "▢");
-				if (buffer[pos.y][pos.x].type == PLAYER)
-					ft_printf("%s%s", DARK_BLUE, "◉");
-				if (buffer[pos.y][pos.x].type == COLLECTABLE)
-					ft_printf("%s%s", DARK_GREEN, "◎");
-				if (buffer[pos.y][pos.x].type == WALL)
-					ft_printf("%s%s", DEFAULT, "▣");
+				print_buffer_value(buffer[pos.y][pos.x].type);
 				pos.x++;
 				if (buffer[pos.y][pos.x].type != END)
+					ft_putchar_fd(' ', STDOUT_FILENO);
+			}
+			ft_putchar_fd('\n', STDOUT_FILENO);
+			pos.y++;
+		}
+	}
+}
+
+void	print_types_buffer(t_obj_type **buffer, t_xy pos)
+{
+	if (*buffer)
+	{
+		while (buffer[pos.y])
+		{
+			pos.x = 0;
+			while (buffer[pos.y][pos.x] != END)
+			{
+				print_buffer_value(buffer[pos.y][pos.x]);
+				pos.x++;
+				if (buffer[pos.y][pos.x] != END)
 					ft_putchar_fd(' ', STDOUT_FILENO);
 			}
 			ft_putchar_fd('\n', STDOUT_FILENO);

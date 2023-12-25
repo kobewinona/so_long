@@ -20,6 +20,7 @@
 typedef enum e_obj_type
 {
 	EMPTY,
+	BACKGROUND,
 	WALL,
 	PLAYER,
 	COLLECTABLE,

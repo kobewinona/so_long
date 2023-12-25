@@ -17,6 +17,9 @@
 # include "../draw_shape/draw_shape.h"
 
 t_img	*create_collectable_sprite(void *mlx_ptr, t_list **error_log);
-int		count_collectables(t_obj **buffer);
+void	count_collectables(t_obj_type **buffer, int *collectables_count);
+void	update_collectables_count(
+			t_obj_type **type_buffer, t_obj **layout_buffer,
+			t_xy p_pos, int *collectables_count);
 
 #endif

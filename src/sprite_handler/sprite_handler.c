@@ -29,6 +29,10 @@ void	cleanup_sprites(void *mlx_ptr, t_obj_type *types_table, t_img ***sprites)
 
 t_img	*create_sprite(t_obj_type type, t_gdata gdata)
 {
+	if (type == EMPTY)
+		return (NULL);
+	if (type == BACKGROUND)
+		return (create_background_sprite(gdata.window->mlx_ptr, gdata.error_log));
 	if (type == WALL)
 		return (create_wall_sprite(gdata.window->mlx_ptr, gdata.error_log));
 	if (type == PLAYER)
@@ -37,27 +41,26 @@ t_img	*create_sprite(t_obj_type type, t_gdata gdata)
 		return (create_collectable_sprite(
 				gdata.window->mlx_ptr, gdata.error_log));
 	if (type == EXIT)
-		return (create_exit_sprite(gdata.window->mlx_ptr, gdata.error_log));
+		return (create_close_exit_sprite(gdata.window->mlx_ptr, gdata.error_log));
 	return (NULL);
 }
 
 int	create_sprites(t_img ***sprites, t_gdata gdata)
 {
 	int	types_count;
-	int	i;
+	int	type;
 
 	types_count = count_valid_types(gdata.types_table);
 	(*sprites) = (t_img **)ft_calloc((types_count + 1), sizeof(t_img *));
 	if (!(*sprites))
 		return (log_error_message(gdata.error_log, UNKNOWN_ERR, ERROR));
-	(*sprites)[0] = create_background_sprite(gdata.window->mlx_ptr, gdata.error_log);
-	i = 1;
-	while (i < types_count)
+	type = 1;
+	while (type < types_count)
 	{
-		(*sprites)[i] = create_sprite(i, gdata);
-		if (!(*sprites)[i])
+		(*sprites)[type] = create_sprite(type, gdata);
+		if (type != EMPTY && !(*sprites)[type])
 			return (log_error_message(gdata.error_log, SPRITE_ERR, ERROR));
-		i++;
+		type++;
 	}
 	return (SUCCESS);
 }

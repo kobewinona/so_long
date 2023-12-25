@@ -31,7 +31,7 @@ t_obj_type	match_type(const t_obj_type *types_table, int src)
 {
 	if (!types_table)
 		return (INVALID);
-	return (types_table[(unsigned char) src]);
+	return (types_table[(unsigned char)src]);
 }
 
 int	count_valid_types(const t_obj_type *table)
@@ -65,5 +65,6 @@ int	create_types_table(t_obj_type **types_table, t_list **error_log)
 	(*types_table)['P'] = PLAYER;
 	(*types_table)['C'] = COLLECTABLE;
 	(*types_table)['E'] = EXIT;
+	(*types_table)['B'] = BACKGROUND;
 	return (SUCCESS);
 }

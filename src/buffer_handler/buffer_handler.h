@@ -15,8 +15,9 @@
 # include "so_long.h"
 # include "../object/object.h"
 
-void	print_buffer(t_obj **buffer, t_xy pos);
-void	add_sprites_to_buffer(t_obj **buffer, t_img **sprites, t_xy pos);
-void	cleanup_buffer(t_obj **buffer);
+void	print_types_buffer(t_obj_type **buffer, t_xy pos);
+void	print_objects_buffer(t_obj **buffer, t_xy pos);
+void	cleanup_types_buffer(t_obj_type **buffer);
+void	cleanup_objs_buffer(t_obj **buffer);
 
 #endif

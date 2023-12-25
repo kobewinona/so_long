@@ -24,7 +24,7 @@ struct s_obj
 	int			collision;
 };
 
-t_obj	create_object(t_gdata gdata, t_obj_type type, t_img *sprite);
+t_obj	create_object(t_obj_type type, t_img *sprite);
 void	render_object(t_obj obj, t_xy pos, t_win *window);
 
 #endif

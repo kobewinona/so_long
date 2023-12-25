@@ -15,6 +15,7 @@
 # include "so_long.h"
 # include "../draw_shape/draw_shape.h"
 
-t_img	*create_exit_sprite(void *mlx_ptr, t_list **error_log);
+t_img	*create_close_exit_sprite(void *mlx_ptr, t_list **error_log);
+t_img	*create_open_exit_sprite(void *mlx_ptr, t_list **error_log);
 
 #endif

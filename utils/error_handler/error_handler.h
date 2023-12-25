@@ -16,7 +16,7 @@
 
 typedef struct s_error
 {
-	void	(*cleanup)(void **);
+	int		(*cleanup)(void **);
 	char	*message;
 	t_list	**error_log;
 	int		is_fatal;

@@ -14,8 +14,9 @@
 # define MAP_VALIDATOR_H
 # include "so_long.h"
 # include "../object/object.h"
+# include "../buffer_handler/buffer_handler.h"
 
-typedef struct s_val_info
+typedef struct s_vdata
 {
 	int	is_valid;
 	int	is_rectangular;
@@ -26,7 +27,7 @@ typedef struct s_val_info
 	int	is_solvable;
 	int	height;
 	int	width;
-}	t_val_info;
+}	t_vdata;
 
 typedef struct s_ff
 {
@@ -37,9 +38,9 @@ typedef struct s_ff
 	int		is_exit_found;
 }	t_ff;
 
-int		is_map_valid(t_obj **buffer, t_list **error_log);
-int		is_map_solvable(
-			t_obj **buffer, t_val_info *val_info, t_list **error_log);
-void	log_validation_errors(t_val_info *val_info, t_list **error_log);
+int	is_map_valid(t_obj_type **buffer, t_list **error_log);
+int	is_map_solvable(
+		t_obj_type **buffer, t_vdata vdata, t_list **error_log);
+int	log_validation_errors(t_vdata vdata, t_list **error_log);
 
 #endif
