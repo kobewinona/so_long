@@ -12,22 +12,35 @@
 
 #include "../gstate.h"
 
+void	render_object(t_win *window, t_img *sprite, t_xy pos)
+{
+	if (window && sprite)
+	{
+		if (window->mlx_ptr && window->win_ptr)
+		{
+			mlx_put_image_to_window(
+				window->mlx_ptr, window->win_ptr, sprite->img_ptr,
+				(pos.x * SPRITE_WIDTH), (pos.y * SPRITE_HEIGHT));
+		}
+	}
+}
+
 int	render_layout(t_gstate	**gstate)
 {
+	t_obj_type	obj_type;
 	t_xy		pos;
-	t_obj		background;
 
-	background = create_object(BACKGROUND, (*gstate)->sprites[BACKGROUND]);
 	pos.y = 0;
 	while ((*gstate)->layout_buffer[pos.y])
 	{
 		pos.x = 0;
-		while ((*gstate)->layout_buffer[pos.y][pos.x].type != END)
+		while ((*gstate)->layout_buffer[pos.y][pos.x] != END)
 		{
-			render_object(background, (t_xy){pos.x, pos.y}, (*gstate)->window);
-			render_object(
-				(*gstate)->layout_buffer[pos.y][pos.x],
-				(t_xy){pos.x, pos.y}, (*gstate)->window);
+			obj_type = (*gstate)->layout_buffer[pos.y][pos.x];
+			render_object((*gstate)->window,
+				(*gstate)->sprites[BACKGROUND], pos);
+			render_object((*gstate)->window,
+				(*gstate)->sprites[obj_type], pos);
 			pos.x++;
 		}
 		pos.y++;
@@ -37,20 +50,19 @@ int	render_layout(t_gstate	**gstate)
 
 int	render_objects(t_gstate **gstate)
 {
-	t_obj		obj;
+	t_obj_type	obj_type;
 	t_xy		pos;
 
 	pos.y = 0;
-	while ((*gstate)->objs_buffer[pos.y])
+	while ((*gstate)->game_buffer[pos.y])
 	{
 		pos.x = 0;
-		while ((*gstate)->objs_buffer[pos.y][pos.x].type != END)
+		while ((*gstate)->game_buffer[pos.y][pos.x] != END)
 		{
-			obj = (*gstate)->objs_buffer[pos.y][pos.x];
-			if (obj.sprite && obj.type == PLAYER)
-				render_object(obj, (t_xy){pos.x, pos.y}, (*gstate)->window);
-			if (obj.sprite && obj.type == COLLECTABLE)
-				render_object(obj, (t_xy){pos.x, pos.y}, (*gstate)->window);
+			obj_type = (*gstate)->game_buffer[pos.y][pos.x];
+			if (obj_type == PLAYER || obj_type == COLLECTABLE)
+				render_object((*gstate)->window,
+					(*gstate)->sprites[obj_type], pos);
 			pos.x++;
 		}
 		pos.y++;

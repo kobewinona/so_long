@@ -40,6 +40,7 @@ int	main(int argc, char **argv)
 		NULL, TOO_MANY_ARGUMENTS_ERR, &error_log, TRUE});
 	handle_error(validate_mapfile(argv[1], &error_log), NULL, (t_error){
 		NULL, GAME_ERR, &error_log, TRUE});
-	init_game(argv[1], &error_log);
+	handle_error(init_game(argv[1], &error_log), NULL, (t_error){
+			NULL, GAME_ERR, &error_log, TRUE});
 	return (0);
 }

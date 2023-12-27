@@ -23,22 +23,19 @@ typedef struct s_gstate
 	t_size			size;
 	t_list			**error_log;
 	t_obj_type		*types_table;
-	t_obj_type		**types_buffer;
-	t_obj			**layout_buffer;
-	t_obj			**objs_buffer;
+	t_obj_type		**game_buffer;
+	t_obj_type		**layout_buffer;
 	t_img			**sprites;
 	t_xy			p_pos;
+	int				moves_count;
 	int				collectables_count;
 }	t_gstate;
 
 int		init_game(const char *mapfile, t_list **error_log);
-int		init_types_buffer(const char *mapfile,
+int		init_game_buffer(const char *mapfile,
 			t_obj_type ***buffer, t_size *size, t_gdata gdata);
 int		init_layout_buffer(
-			t_obj_type **types_buffer, t_obj ***layout_buffer, t_gdata gdata);
-int		init_objs_buffer(
-			t_obj_type **types_buffer, t_obj ***objs_buffer, t_gdata gdata);
-int		cleanup_game(void **ptr);
+			t_obj_type **game_buffer, t_obj_type ***layout_buffer, t_gdata gdata);
 int		render_game(t_gstate **gstate);
 int		render_layout(t_gstate	**gstate);
 int		render_objects(t_gstate **gstate);

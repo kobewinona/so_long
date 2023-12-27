@@ -12,25 +12,7 @@
 
 #include "buffer_handler.h"
 
-void	cleanup_objs_buffer(t_obj **buffer)
-{
-	int	y;
-
-	if (buffer)
-	{
-		y = 0;
-		while (buffer[y])
-		{
-			free(buffer[y]);
-			buffer[y] = NULL;
-			y++;
-		}
-		free(buffer);
-		buffer = NULL;
-	}
-}
-
-void	cleanup_types_buffer(t_obj_type **buffer)
+void	cleanup_buffer(t_obj_type **buffer)
 {
 	int	y;
 
@@ -62,27 +44,7 @@ static void	print_buffer_value(t_obj_type type)
 		ft_printf("%s%s", DEFAULT, "▣");
 }
 
-void	print_objects_buffer(t_obj **buffer, t_xy pos)
-{
-	if (*buffer)
-	{
-		while (buffer[pos.y])
-		{
-			pos.x = 0;
-			while (buffer[pos.y][pos.x].type != END)
-			{
-				print_buffer_value(buffer[pos.y][pos.x].type);
-				pos.x++;
-				if (buffer[pos.y][pos.x].type != END)
-					ft_putchar_fd(' ', STDOUT_FILENO);
-			}
-			ft_putchar_fd('\n', STDOUT_FILENO);
-			pos.y++;
-		}
-	}
-}
-
-void	print_types_buffer(t_obj_type **buffer, t_xy pos)
+void	print_buffer(t_obj_type **buffer, t_xy pos)
 {
 	if (*buffer)
 	{

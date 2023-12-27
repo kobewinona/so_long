@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   types_buffer.c                                     :+:      :+:    :+:   */
+/*   game_buffer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dklimkin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/25 13:28:38 by dklimkin          #+#    #+#             */
-/*   Updated: 2023/12/25 13:28:39 by dklimkin         ###   ########.fr       */
+/*   Created: 2023/12/27 16:54:34 by dklimkin          #+#    #+#             */
+/*   Updated: 2023/12/27 16:54:35 by dklimkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	count_width(const char *line)
 	int	count;
 
 	count = 0;
-	while (line[count] && line[count] != '\n')
+	while (line[count] != '\0' && line[count] != '\n')
 		count++;
 	return (count);
 }
@@ -51,7 +51,7 @@ static int	fill_buffer(t_obj_type *buffer, char *line, t_gdata gdata)
 	int			x;
 
 	x = 0;
-	while (line[x] && line[x] != '\n')
+	while (line[x] != '\0' && line[x] != '\n')
 	{
 		type = match_type(gdata.types_table, line[x]);
 		if (is_type_valid(gdata.types_table, type))
@@ -64,7 +64,7 @@ static int	fill_buffer(t_obj_type *buffer, char *line, t_gdata gdata)
 	return (SUCCESS);
 }
 
-int	init_types_buffer(
+int	init_game_buffer(
 		const char *mapfile, t_obj_type ***buffer, t_size *size, t_gdata gdata)
 {
 	int		fd;

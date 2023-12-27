@@ -13,12 +13,11 @@
 #ifndef PLAYER_H
 # define PLAYER_H
 # include "so_long.h"
-# include "../object/object.h"
 # include "../draw_shape/draw_shape.h"
 
 t_img	*create_player_sprite(void *mlx_ptr, t_list **error_log);
 void	define_player_position(t_obj_type **buffer, t_xy *p_pos);
-void	move_player(
-			t_obj **objects, t_obj **layout, t_xy *p_pos, int key_pressed);
+void	move_player(t_obj_type **game, t_obj_type **layout,
+			t_xy *p_pos, int key_pressed);
 
 #endif

@@ -13,10 +13,9 @@
 #include "collectable.h"
 
 void	update_collectables_count(
-			t_obj_type **type_buffer, t_obj **layout_buffer,
-			t_xy p_pos, int *collectables_count)
+			t_obj_type **game_buffer, t_xy p_pos, int *collectables_count)
 {
-	if (type_buffer[p_pos.y][p_pos.x] == COLLECTABLE)
+	if (game_buffer[p_pos.y][p_pos.x] == COLLECTABLE)
 		(*collectables_count)--;
 }
 

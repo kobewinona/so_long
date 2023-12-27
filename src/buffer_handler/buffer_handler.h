@@ -13,11 +13,8 @@
 #ifndef BUFFER_HANDLER_H
 # define BUFFER_HANDLER_H
 # include "so_long.h"
-# include "../object/object.h"
 
-void	print_types_buffer(t_obj_type **buffer, t_xy pos);
-void	print_objects_buffer(t_obj **buffer, t_xy pos);
-void	cleanup_types_buffer(t_obj_type **buffer);
-void	cleanup_objs_buffer(t_obj **buffer);
+void	print_buffer(t_obj_type **buffer, t_xy pos);
+void	cleanup_buffer(t_obj_type **buffer);
 
 #endif

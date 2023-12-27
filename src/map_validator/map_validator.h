@@ -13,7 +13,6 @@
 #ifndef MAP_VALIDATOR_H
 # define MAP_VALIDATOR_H
 # include "so_long.h"
-# include "../object/object.h"
 # include "../buffer_handler/buffer_handler.h"
 
 typedef struct s_vdata

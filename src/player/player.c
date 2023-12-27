@@ -18,7 +18,7 @@ void	define_player_position(t_obj_type **buffer, t_xy *p_pos)
 	while (buffer[p_pos->y])
 	{
 		p_pos->x = 0;
-		while (buffer[p_pos->y][p_pos->x] != EMPTY)
+		while (buffer[p_pos->y][p_pos->x] != END)
 		{
 			if (buffer[p_pos->y][p_pos->x] == PLAYER)
 				return ;
@@ -28,18 +28,18 @@ void	define_player_position(t_obj_type **buffer, t_xy *p_pos)
 	}
 }
 
-void	move_player(
-			t_obj **objects, t_obj **layout, t_xy *p_pos, int key_pressed)
+void	move_player(t_obj_type **game, t_obj_type **layout,
+			t_xy *p_pos, int key_pressed)
 {
-	int		dir_y;
-	int		dir_x;
+	int			dir_y;
+	int			dir_x;
 
 	dir_y = (key_pressed == S) - (key_pressed == W);
 	dir_x = (key_pressed == D) - (key_pressed == A);
-	if (layout[p_pos->y + dir_y][p_pos->x + dir_x].type == WALL)
+	if (layout[p_pos->y + dir_y][p_pos->x + dir_x] == WALL)
 		return ;
-	objects[p_pos->y + dir_y][p_pos->x + dir_x] = objects[p_pos->y][p_pos->x];
-	objects[p_pos->y][p_pos->x] = layout[p_pos->y][p_pos->x];
+	game[p_pos->y + dir_y][p_pos->x + dir_x] = game[p_pos->y][p_pos->x];
+	game[p_pos->y][p_pos->x] = layout[p_pos->y][p_pos->x];
 	p_pos->y = (p_pos->y + dir_y);
 	p_pos->x = (p_pos->x + dir_x);
 }

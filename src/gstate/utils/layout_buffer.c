@@ -13,41 +13,39 @@
 #include "../gstate.h"
 
 static void	fill_buffer(
-		const t_obj_type *types_buffer, t_obj **layout_buffer, t_img **sprites)
+		const t_obj_type *game_buffer, t_obj_type **layout_buffer)
 {
 	t_obj_type	type;
 	int			x;
 
 	x = 0;
-	while (types_buffer[x] != END)
+	while (game_buffer[x] != END)
 	{
-		type = types_buffer[x];
+		type = game_buffer[x];
 		if (type != PLAYER && type != COLLECTABLE)
-			(*layout_buffer)[x] = create_object(type, sprites[type]);
-		else
-			(*layout_buffer)[x] = (t_obj){EMPTY, NULL, FALSE};
+			(*layout_buffer)[x] = game_buffer[x];
 		x++;
 	}
-	(*layout_buffer)[x].type = END;
+	(*layout_buffer)[x] = END;
 }
 
 int	init_layout_buffer(
-		t_obj_type **types_buffer, t_obj ***layout_buffer, t_gdata gdata)
+		t_obj_type **game_buffer, t_obj_type ***layout_buffer, t_gdata gdata)
 {
 	int	y;
 
-	(*layout_buffer) = (t_obj **)ft_calloc(
-			(gdata.size.height + 1), sizeof(t_obj *));
+	(*layout_buffer) = (t_obj_type **)ft_calloc(
+			(gdata.size.height + 1), sizeof(t_obj_type *));
 	if (!(*layout_buffer))
 		return (log_error_message(gdata.error_log, UNKNOWN_ERR, ERROR));
 	y = 0;
-	while (types_buffer[y])
+	while (game_buffer[y])
 	{
-		(*layout_buffer)[y] = (t_obj *)ft_calloc(
-				(gdata.size.width + 1), sizeof(t_obj));
+		(*layout_buffer)[y] = (t_obj_type *)ft_calloc(
+				(gdata.size.width + 1), sizeof(t_obj_type));
 		if (!(*layout_buffer)[y])
 			return (log_error_message(gdata.error_log, UNKNOWN_ERR, ERROR));
-		fill_buffer(types_buffer[y], &(*layout_buffer)[y], gdata.sprites);
+		fill_buffer(game_buffer[y], &(*layout_buffer)[y]);
 		y++;
 	}
 	return (SUCCESS);
