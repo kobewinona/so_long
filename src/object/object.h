@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player.h                                           :+:      :+:    :+:   */
+/*   object.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dklimkin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/04 14:52:45 by dklimkin          #+#    #+#             */
-/*   Updated: 2023/12/04 14:52:47 by dklimkin         ###   ########.fr       */
+/*   Created: 2023/12/27 18:36:01 by dklimkin          #+#    #+#             */
+/*   Updated: 2023/12/27 18:36:07 by dklimkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PLAYER_H
-# define PLAYER_H
+#ifndef OBJECT_H
+# define OBJECT_H
 # include "so_long.h"
-# include "../object/object.h"
-# include "../collectable/collectable.h"
-# include "../draw_shape/draw_shape.h"
 
-t_img	*create_player_sprite(void *mlx_ptr, t_list **error_log);
-void	define_player_position(t_obj_type **buffer, t_xy *p_pos);
-//void	move_player(t_obj_type **game, t_obj_type **layout,
-//			t_xy *p_pos, int key_pressed);
-void	move_player(t_list ***layers, t_xy *curr_pos, int key_pressed);
+typedef struct s_obj
+{
+	t_obj_type	type;
+}	t_obj;
+
+t_obj	*create_object(t_obj_type type);
+t_obj	*get_object(t_list *node);
+void	cleanup_object(t_obj *obj);
 
 #endif

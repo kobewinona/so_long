@@ -25,54 +25,27 @@ void	render_object(t_win *window, t_img *sprite, t_xy pos)
 	}
 }
 
-int	render_layout(t_gstate	**gstate)
-{
-	t_obj_type	obj_type;
-	t_xy		pos;
-
-	pos.y = 0;
-	while ((*gstate)->layout_buffer[pos.y])
-	{
-		pos.x = 0;
-		while ((*gstate)->layout_buffer[pos.y][pos.x] != END)
-		{
-			obj_type = (*gstate)->layout_buffer[pos.y][pos.x];
-			render_object((*gstate)->window,
-				(*gstate)->sprites[BACKGROUND], pos);
-			render_object((*gstate)->window,
-				(*gstate)->sprites[obj_type], pos);
-			pos.x++;
-		}
-		pos.y++;
-	}
-	return (SUCCESS);
-}
-
-int	render_objects(t_gstate **gstate)
-{
-	t_obj_type	obj_type;
-	t_xy		pos;
-
-	pos.y = 0;
-	while ((*gstate)->game_buffer[pos.y])
-	{
-		pos.x = 0;
-		while ((*gstate)->game_buffer[pos.y][pos.x] != END)
-		{
-			obj_type = (*gstate)->game_buffer[pos.y][pos.x];
-			if (obj_type == PLAYER || obj_type == COLLECTABLE)
-				render_object((*gstate)->window,
-					(*gstate)->sprites[obj_type], pos);
-			pos.x++;
-		}
-		pos.y++;
-	}
-	return (SUCCESS);
-}
-
 int	render_game(t_gstate **gstate)
 {
-	render_layout(gstate);
-	render_objects(gstate);
+	t_list		*current;
+	t_xy		pos;
+
+	pos.y = 0;
+	while (pos.y < (*gstate)->size.height)
+	{
+		pos.x = 0;
+		while (pos.x < (*gstate)->size.width)
+		{
+			current = (*gstate)->layers_buffer[pos.y][pos.x];
+			while (current)
+			{
+				render_object((*gstate)->window,
+					(*gstate)->sprites[get_object(current)->type], pos);
+				current = current->next;
+			}
+			pos.x++;
+		}
+		pos.y++;
+	}
 	return (SUCCESS);
 }

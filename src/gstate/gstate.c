@@ -25,6 +25,8 @@ static int	cleanup_game(void **ptr)
 			cleanup_buffer(gstate->game_buffer);
 		if (gstate->layout_buffer)
 			cleanup_buffer(gstate->layout_buffer);
+		if (gstate->layers_buffer)
+			cleanup_layers_buffer(gstate->layers_buffer);
 		if (gstate->sprites)
 			cleanup_sprites(gstate->window->mlx_ptr,
 				gstate->types_table, &gstate->sprites);
@@ -52,6 +54,10 @@ static int	create_game_env(const char *mapfile, t_gstate *gstate)
 			(t_gdata){gstate->window, gstate->size, gstate->error_log,
 			gstate->types_table, gstate->sprites}) != SUCCESS)
 		return (log_error_message(gstate->error_log, LAYOUT_ERR, ERROR));
+	if (init_layers_buffer(gstate->game_buffer, &gstate->layers_buffer,
+			(t_gdata){gstate->window, gstate->size, gstate->error_log,
+			gstate->types_table, gstate->sprites}) != SUCCESS)
+		return (log_error_message(gstate->error_log, LAYOUT_ERR, ERROR));
 	print_buffer(gstate->layout_buffer, (t_xy){0, 0});
 	count_collectables(gstate->game_buffer, &gstate->collectables_count);
 	define_player_position(gstate->game_buffer, &gstate->p_pos);
@@ -72,8 +78,7 @@ int	read_keys(int key_pressed, void **ptr)
 	}
 	if ((key_pressed >= A && key_pressed <= D) || key_pressed == W)
 	{
-		move_player((*gstate)->game_buffer,
-			(*gstate)->layout_buffer, &(*gstate)->p_pos, key_pressed);
+		move_player((*gstate)->layers_buffer, &(*gstate)->p_pos, key_pressed);
 		(*gstate)->moves_count++;
 		update_collectables_count((*gstate)->game_buffer,
 			(*gstate)->p_pos, &(*gstate)->collectables_count);

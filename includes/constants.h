@@ -77,4 +77,7 @@
 # define SPRITES_ERR "failed to create sprites\n"
 # define SPRITE_ERR "failed to create a sprite\n"
 
+// object errors
+# define OBJECT_ERR "failed to create an object\n"
+
 #endif

@@ -28,20 +28,55 @@ void	define_player_position(t_obj_type **buffer, t_xy *p_pos)
 	}
 }
 
-void	move_player(t_obj_type **game, t_obj_type **layout,
-			t_xy *p_pos, int key_pressed)
+static void	update_player_position(t_list ***layers_buffer, t_xy curr_pos, t_xy new_pos)
 {
-	int			dir_y;
-	int			dir_x;
+	t_list	*prev;
+	t_list	*current;
+
+	prev = NULL;
+	current = layers_buffer[curr_pos.y][curr_pos.x];
+	while (current)
+	{
+		if (get_object(current)->type == PLAYER)
+		{
+			if (prev == NULL)
+				layers_buffer[curr_pos.y][curr_pos.x] = current->next;
+			else
+				prev->next = current->next;
+			current->next = NULL;
+			ft_lstadd_back(&layers_buffer[new_pos.y][new_pos.x], current);
+			return ;
+		}
+		prev = current;
+		current = current->next;
+	}
+}
+
+static int	is_collision(t_list *current)
+{
+	while (current)
+	{
+		if (get_object(current)->type == WALL)
+			return (TRUE);
+		current = current->next;
+	}
+	return (FALSE);
+}
+
+void	move_player(t_list ***layers_buffer, t_xy *curr_pos, int key_pressed)
+{
+	int		dir_y;
+	int		dir_x;
+	t_xy	new_pos;
 
 	dir_y = (key_pressed == S) - (key_pressed == W);
 	dir_x = (key_pressed == D) - (key_pressed == A);
-	if (layout[p_pos->y + dir_y][p_pos->x + dir_x] == WALL)
+	new_pos = (t_xy){(curr_pos->x + dir_x), (curr_pos->y + dir_y)};
+	if (is_collision(layers_buffer[new_pos.y][new_pos.x]))
 		return ;
-	game[p_pos->y + dir_y][p_pos->x + dir_x] = game[p_pos->y][p_pos->x];
-	game[p_pos->y][p_pos->x] = layout[p_pos->y][p_pos->x];
-	p_pos->y = (p_pos->y + dir_y);
-	p_pos->x = (p_pos->x + dir_x);
+	destroy_collectable(layers_buffer, new_pos);
+	update_player_position(layers_buffer, *curr_pos, new_pos);
+	*curr_pos = new_pos;
 }
 
 t_img	*create_player_sprite(void *mlx_ptr, t_list **error_log)
