@@ -12,7 +12,8 @@
 
 #include "sprite_handler.h"
 
-void	cleanup_sprites(void *mlx_ptr, t_obj_type *types_table, t_img ***sprites)
+void	cleanup_sprites(void *mlx_ptr,
+		t_obj_type *types_table, t_img ***sprites)
 {
 	int	types_count;
 	int	i;
@@ -32,7 +33,8 @@ t_img	*create_sprite(t_obj_type type, t_gdata gdata)
 	if (type == EMPTY)
 		return (NULL);
 	if (type == BACKGROUND)
-		return (create_background_sprite(gdata.window->mlx_ptr, gdata.error_log));
+		return (create_background_sprite(
+				gdata.window->mlx_ptr, gdata.error_log));
 	if (type == WALL)
 		return (create_wall_sprite(gdata.window->mlx_ptr, gdata.error_log));
 	if (type == PLAYER)
@@ -41,7 +43,8 @@ t_img	*create_sprite(t_obj_type type, t_gdata gdata)
 		return (create_collectable_sprite(
 				gdata.window->mlx_ptr, gdata.error_log));
 	if (type == EXIT)
-		return (create_close_exit_sprite(gdata.window->mlx_ptr, gdata.error_log));
+		return (create_close_exit_sprite(
+				gdata.window->mlx_ptr, gdata.error_log));
 	return (NULL);
 }
 

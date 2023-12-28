@@ -15,9 +15,11 @@
 # include "so_long.h"
 # include <stdio.h>
 # include "../object/object.h"
+# include "../exit/exit.h"
 # include "../buffer_handler/buffer_handler.h"
 # include "../map_validator/map_validator.h"
 # include "../sprite_handler/sprite_handler.h"
+# include "../keys_reader/keys_reader.h"
 
 typedef struct s_gstate
 {
@@ -43,5 +45,6 @@ int		init_layers_buffer(
 			t_obj_type **game_buffer, t_list ****layers_buffer, t_gdata gdata);
 void	cleanup_layers_buffer(t_list ***layers_buffer);
 int		render_game(t_gstate **gstate);
+int		cleanup_game(void **ptr);
 
 #endif

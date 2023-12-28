@@ -17,7 +17,7 @@ int	log_validation_errors(t_vdata vdata, t_list **error_log)
 	if (vdata.is_rectangular == FALSE)
 		vdata.is_valid = log_error_message(
 				error_log, RECTANGULAR_ERR, FALSE);
-	if (vdata.is_surrounded_with_walls == FALSE)
+	if (vdata.is_surrounded_by_walls == FALSE)
 		vdata.is_valid = log_error_message(
 				error_log, WALLS_SURROUNDED_ERR, FALSE);
 	if (vdata.players_count != 1)

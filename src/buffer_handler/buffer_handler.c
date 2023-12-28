@@ -22,12 +22,37 @@ void	cleanup_buffer(t_obj_type **buffer)
 		while (buffer[y])
 		{
 			free(buffer[y]);
-			buffer[y] = NULL;
 			y++;
 		}
 		free(buffer);
-		buffer = NULL;
 	}
+}
+
+void	define_buffer_size(t_obj_type **buffer, t_size *size)
+{
+	while (buffer[size->height])
+	{
+		size->width = 0;
+		while (buffer[size->height][size->width] != END)
+			size->width++;
+		size->height++;
+	}
+}
+
+int	find_buffer_type(t_obj_type **buffer, t_xy *pos, t_obj_type target_type)
+{
+	while (buffer[pos->y])
+	{
+		pos->x = 0;
+		while (buffer[pos->y][pos->x] != END)
+		{
+			if (buffer[pos->y][pos->x] == target_type)
+				return (TRUE);
+			pos->x++;
+		}
+		pos->y++;
+	}
+	return (FALSE);
 }
 
 static void	print_buffer_value(t_obj_type type)

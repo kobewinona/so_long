@@ -12,6 +12,20 @@
 
 #include "exit.h"
 
+int	is_exit_reached(t_list ***layers_buffer, t_xy pos)
+{
+	t_list	*current;
+
+	current = layers_buffer[pos.y][pos.x];
+	while (current)
+	{
+		if (get_object(current)->type == EXIT)
+			return (TRUE);
+		current = current->next;
+	}
+	return (FALSE);
+}
+
 t_img	*create_open_exit_sprite(void *mlx_ptr, t_list **error_log)
 {
 	t_img	*sprite;

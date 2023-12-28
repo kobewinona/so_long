@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buffer_handler.h                                   :+:      :+:    :+:   */
+/*   animation.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dklimkin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/18 17:40:44 by dklimkin          #+#    #+#             */
-/*   Updated: 2023/12/18 17:40:45 by dklimkin         ###   ########.fr       */
+/*   Created: 2023/12/28 00:48:43 by dklimkin          #+#    #+#             */
+/*   Updated: 2023/12/28 00:48:44 by dklimkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUFFER_HANDLER_H
-# define BUFFER_HANDLER_H
+#ifndef ANIMATION_H
+# define ANIMATION_H
 # include "so_long.h"
 
-void	print_buffer(t_obj_type **buffer, t_xy pos);
-void	define_buffer_size(t_obj_type **buffer, t_size *size);
-int		find_buffer_type(t_obj_type **buffer, t_xy *pos, t_obj_type target_type);
-void	cleanup_buffer(t_obj_type **buffer);
+typedef struct s_animation
+{
+	t_list		*frames;
+	int			width;
+	int			height;
+	int			delay;			// How many fps it takes to change animation
+	int			_tmp_delay;		// Delay Iterator
+	int			current_frame;	// Which frame is selected
+	long int	last_updated;	// When was the last update
+	long int	frame_count;	// The frame count
+	t_obj_type	type;
+}	t_animation;
 
 #endif

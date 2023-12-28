@@ -12,23 +12,8 @@
 
 #include "player.h"
 
-void	define_player_position(t_obj_type **buffer, t_xy *p_pos)
-{
-	*p_pos = (t_xy){0, 0};
-	while (buffer[p_pos->y])
-	{
-		p_pos->x = 0;
-		while (buffer[p_pos->y][p_pos->x] != END)
-		{
-			if (buffer[p_pos->y][p_pos->x] == PLAYER)
-				return ;
-			p_pos->x++;
-		}
-		p_pos->y++;
-	}
-}
-
-static void	update_player_position(t_list ***layers_buffer, t_xy curr_pos, t_xy new_pos)
+static void	update_player_position(
+		t_list ***layers_buffer, t_xy curr_pos, t_xy new_pos)
 {
 	t_list	*prev;
 	t_list	*current;
@@ -72,11 +57,16 @@ void	move_player(t_list ***layers_buffer, t_xy *curr_pos, int key_pressed)
 	dir_y = (key_pressed == S) - (key_pressed == W);
 	dir_x = (key_pressed == D) - (key_pressed == A);
 	new_pos = (t_xy){(curr_pos->x + dir_x), (curr_pos->y + dir_y)};
-	if (is_collision(layers_buffer[new_pos.y][new_pos.x]))
+	if (is_collision(layers_buffer[new_pos.y][new_pos.x]) == TRUE)
 		return ;
 	destroy_collectable(layers_buffer, new_pos);
 	update_player_position(layers_buffer, *curr_pos, new_pos);
 	*curr_pos = new_pos;
+}
+
+void	read_player_control_keys(int key_pressed, void **ptr)
+{
+
 }
 
 t_img	*create_player_sprite(void *mlx_ptr, t_list **error_log)

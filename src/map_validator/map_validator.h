@@ -19,7 +19,7 @@ typedef struct s_vdata
 {
 	int	is_valid;
 	int	is_rectangular;
-	int	is_surrounded_with_walls;
+	int	is_surrounded_by_walls;
 	int	players_count;
 	int	collectables_count;
 	int	exits_count;
@@ -31,15 +31,14 @@ typedef struct s_vdata
 typedef struct s_ff
 {
 	bool	**buffer;
-	int		players_x;
-	int		players_y;
+	t_xy	p_pos;
 	int		collectables_count;
 	int		is_exit_found;
 }	t_ff;
 
-int	is_map_valid(t_obj_type **buffer, t_list **error_log);
-int	is_map_solvable(
-		t_obj_type **buffer, t_vdata vdata, t_list **error_log);
+int	is_map_valid(t_obj_type **buffer, t_size size, t_list **error_log);
+int	is_solvable(t_obj_type **buffer,
+		t_vdata vdata, t_size size, t_list **error_log);
 int	log_validation_errors(t_vdata vdata, t_list **error_log);
 
 #endif

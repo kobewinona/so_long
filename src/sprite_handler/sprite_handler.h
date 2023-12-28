@@ -21,6 +21,14 @@
 # include "../collectable/collectable.h"
 # include "../exit/exit.h"
 
+typedef struct s_sprite_slice
+{
+	int	x;
+	int	y;
+	int	width;
+	int	height;
+}	t_sprite_slice;
+
 int		create_sprites(t_img ***sprites, t_gdata gdata);
 t_img	*create_sprite(t_obj_type type, t_gdata gdata);
 void	cleanup_sprites(
