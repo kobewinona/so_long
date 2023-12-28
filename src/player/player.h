@@ -18,7 +18,6 @@
 # include "../draw_shape/draw_shape.h"
 
 t_img	*create_player_sprite(void *mlx_ptr, t_list **error_log);
-void	read_player_control_keys(int key_pressed, void **ptr);
 void	move_player(t_list ***layers, t_xy *curr_pos, int key_pressed);
 
 #endif

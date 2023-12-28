@@ -64,11 +64,6 @@ void	move_player(t_list ***layers_buffer, t_xy *curr_pos, int key_pressed)
 	*curr_pos = new_pos;
 }
 
-void	read_player_control_keys(int key_pressed, void **ptr)
-{
-
-}
-
 t_img	*create_player_sprite(void *mlx_ptr, t_list **error_log)
 {
 	t_img	*sprite;

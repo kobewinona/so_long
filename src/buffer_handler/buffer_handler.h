@@ -16,7 +16,8 @@
 
 void	print_buffer(t_obj_type **buffer, t_xy pos);
 void	define_buffer_size(t_obj_type **buffer, t_size *size);
-int		find_buffer_type(t_obj_type **buffer, t_xy *pos, t_obj_type target_type);
+int		find_buffer_type(t_obj_type **buffer,
+			t_xy *pos, t_obj_type target_type);
 void	cleanup_buffer(t_obj_type **buffer);
 
 #endif
