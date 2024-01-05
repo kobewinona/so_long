@@ -48,7 +48,6 @@ static int	create_game_env(const char *mapfile, t_gstate *gstate)
 			gstate->types_table, NULL}) != SUCCESS)
 		return (log_error_message(gstate->error_log, BUFFER_ERR, ERROR));
 	define_buffer_size(gstate->game_buffer, &gstate->size);
-	print_buffer(gstate->game_buffer, (t_xy){0, 0});
 	if (is_map_valid(gstate->game_buffer,
 			gstate->size, gstate->error_log) != TRUE)
 		return (log_error_message(gstate->error_log, VALIDATION_ERR, ERROR));
@@ -60,7 +59,6 @@ static int	create_game_env(const char *mapfile, t_gstate *gstate)
 			(t_gdata){gstate->window, gstate->size, gstate->error_log,
 			gstate->types_table, gstate->sprites}) != SUCCESS)
 		return (log_error_message(gstate->error_log, LAYOUT_ERR, ERROR));
-	print_buffer(gstate->layout_buffer, (t_xy){0, 0});
 	count_collectables(gstate->game_buffer, &gstate->collectables_count);
 	find_buffer_type(gstate->game_buffer, &gstate->p_pos, PLAYER);
 	return (SUCCESS);
