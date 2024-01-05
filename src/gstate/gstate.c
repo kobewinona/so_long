@@ -38,6 +38,14 @@ int	cleanup_game(void **ptr)
 	return (SUCCESS);
 }
 
+int	game_exit(t_gstate **gstate, int exit_status)
+{
+	cleanup_game((void **)gstate);
+	if (exit_status != EXIT_SUCCESS)
+		exit(EXIT_FAILURE);
+	exit(exit_status);
+}
+
 static int	create_game_env(const char *mapfile, t_gstate *gstate)
 {
 	if (create_types_table(
@@ -85,7 +93,7 @@ int	init_game(const char *mapfile, t_list **error_log)
 		&cleanup_game, WINDOW_ERR, gstate->error_log, TRUE});
 	mlx_loop_hook(gstate->window->mlx_ptr, render_game, &gstate);
 	mlx_key_hook(gstate->window->win_ptr, read_keys, &gstate);
-	mlx_hook(gstate->window->win_ptr, 17, 0, cleanup_game, &gstate);
+	mlx_hook(gstate->window->win_ptr, 17, 0, game_exit, &gstate);
 	mlx_loop(gstate->window->mlx_ptr);
 	cleanup_game((void **)&gstate);
 	return (SUCCESS);

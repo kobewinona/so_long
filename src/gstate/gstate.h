@@ -45,6 +45,7 @@ int		init_layers_buffer(
 			t_obj_type **game_buffer, t_list ****layers_buffer, t_gdata gdata);
 void	cleanup_layers_buffer(t_list ***layers_buffer);
 int		render_game(t_gstate **gstate);
+int		game_exit(t_gstate **gstate, int exit_status);
 int		cleanup_game(void **ptr);
 
 #endif

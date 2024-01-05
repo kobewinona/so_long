@@ -24,10 +24,7 @@ static void	handle_player(t_gstate **gstate, int key_pressed)
 		(*gstate)->sprites[EXIT] = create_open_exit_sprite(
 				(*gstate)->window->mlx_ptr, (*gstate)->error_log);
 		if (is_exit_reached((*gstate)->layers_buffer, (*gstate)->p_pos))
-		{
-			cleanup_game((void **)gstate);
-			exit(EXIT_SUCCESS);
-		}
+			game_exit(gstate, EXIT_SUCCESS);
 	}
 }
 
@@ -39,10 +36,7 @@ int	read_keys(int key_pressed, void **ptr)
 	if (!(*gstate))
 		return (ERROR);
 	if (key_pressed == ESC)
-	{
-		cleanup_game(ptr);
-		exit(EXIT_SUCCESS);
-	}
+		game_exit(gstate, EXIT_SUCCESS);
 	if ((key_pressed >= A && key_pressed <= D) || key_pressed == W)
 		handle_player(gstate, key_pressed);
 	return (SUCCESS);
