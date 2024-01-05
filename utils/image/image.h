@@ -25,7 +25,8 @@ typedef struct s_img
 	int		line_len;
 }	t_img;
 
-t_img	*create_image(int width, int height, void *mlx_ptr);
-t_img	*create_file_image(char *path, void *mlx_ptr);
+t_img			*create_image(int width, int height, void *mlx_ptr);
+t_img			*create_file_image(char *path, void *mlx_ptr);
+unsigned int	get_pixel_img(t_img img, int x, int y);
 
 #endif

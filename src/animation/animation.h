@@ -13,6 +13,7 @@
 #ifndef ANIMATION_H
 # define ANIMATION_H
 # include "so_long.h"
+# include "../sprite_handler/sprite_handler.h"
 
 typedef struct s_animation
 {

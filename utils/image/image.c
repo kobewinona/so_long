@@ -12,13 +12,27 @@
 
 #include "image.h"
 
-t_img	*create_file_image(char *path, void *mlx_ptr)
-{
-	t_img	*sprite;
+//t_img	*create_file_image(char *path, void *mlx_ptr)
+//{
+//	t_img	*sprite;
+//
+//	sprite = (t_img *)malloc(sizeof(t_img));
+//	if (!sprite)
+//		return (NULL);
+//	sprite->img_ptr = mlx_xpm_file_to_image(
+//			mlx_ptr, path, &sprite->width, &sprite->height);
+//	if (!sprite->img_ptr)
+//		return (NULL);
+//	sprite->addr = mlx_get_data_addr(
+//			sprite->img_ptr, &(sprite->bpp),
+//			&(sprite->line_len), &(sprite->endian));
+//	return (sprite);
+//}
 
-	sprite = (t_img *)malloc(sizeof(t_img));
-	if (!sprite)
-		return (NULL);
+t_img	*create_new_file_image(char *path, void *mlx_ptr)
+{
+	t_img	sprite;
+
 	sprite->img_ptr = mlx_xpm_file_to_image(
 			mlx_ptr, path, &sprite->width, &sprite->height);
 	if (!sprite->img_ptr)
@@ -27,6 +41,11 @@ t_img	*create_file_image(char *path, void *mlx_ptr)
 			sprite->img_ptr, &(sprite->bpp),
 			&(sprite->line_len), &(sprite->endian));
 	return (sprite);
+}
+
+unsigned int	get_pixel_img(t_img img, int x, int y)
+{
+	return (*(unsigned int *)((img.addr + (y * img.line_len) + (x * img.bpp / 8))));
 }
 
 t_img	*create_image(int width, int height, void *mlx_ptr)

@@ -67,3 +67,13 @@ int	create_sprites(t_img ***sprites, t_gdata gdata)
 	}
 	return (SUCCESS);
 }
+
+t_sprite	create_new_sprite(char *name, char *file_path, t_win *window)
+{
+	t_img	*sprite;
+
+	sprite = create_file_image(file_path, window->mlx_ptr);
+	return ((t_sprite){NULL, ft_strdup(name),
+		ft_strdup(file_path), sprite->img_ptr,
+		sprite->addr, sprite->width, sprite->height, 0});
+}

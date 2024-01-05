@@ -21,6 +21,17 @@
 # include "../collectable/collectable.h"
 # include "../exit/exit.h"
 
+typedef struct s_sprite
+{
+	t_list	*animations;
+	char	*name;
+	char	*file_path;
+	t_img	sprite_img;
+	int		width;
+	int		height;
+	int		z_index;
+}	t_sprite;
+
 typedef struct s_sprite_slice
 {
 	int	x;
@@ -29,9 +40,10 @@ typedef struct s_sprite_slice
 	int	height;
 }	t_sprite_slice;
 
-int		create_sprites(t_img ***sprites, t_gdata gdata);
-t_img	*create_sprite(t_obj_type type, t_gdata gdata);
-void	cleanup_sprites(
-			void *mlx_ptr, t_obj_type *types_table, t_img ***sprites);
+int			create_sprites(t_img ***sprites, t_gdata gdata);
+t_img		*create_sprite(t_obj_type type, t_gdata gdata);
+t_sprite	create_new_sprite(char *name, char *file_path, t_win *window);
+void		cleanup_sprites(
+				void *mlx_ptr, t_obj_type *types_table, t_img ***sprites);
 
 #endif
